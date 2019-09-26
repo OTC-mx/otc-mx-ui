@@ -1,9 +1,11 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
+import Header from './Header'
 import './App.css';
 
 const CreateCall = () => (
-  <div>
+  <body>
+    <Header />
     <h1>Create Call Option</h1>
     <Formik
       initialValues={{ buyer: '', base_addr: '', asset_addr:'',
@@ -29,7 +31,7 @@ const CreateCall = () => (
         </form>
       )}
     />
-  </div>
+  </body>
 );
 
 const CustomInputComponent = ({
