@@ -1,5 +1,6 @@
-body {
+h1 {
   text-align: left;
+  padding-left: 25px;
   background-color: white;
   min-width: 100vh;
   display: flex;
@@ -7,6 +8,21 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: black;
+}
+
+form {
+  text-align: left;
+  padding-left: 25px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
+}
+
+button {
+  max-width: 10vh;
 }
 
 ul {

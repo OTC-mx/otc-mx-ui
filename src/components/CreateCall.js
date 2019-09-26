@@ -1,14 +1,13 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
-import Header from './Header'
-import './App.css';
 
 const CreateCall = () => (
   <body>
     <h1>Create Call Option</h1>
     <Formik
       initialValues={{ buyer: '', base_addr: '', asset_addr:'',
-                      email: '', color: 'red', firstName: ''}}
+                      fee: '', strike_price_base: '', strike_price_quote: '',
+                      volume: '', maturity_time: '', expiry_time:''}}
       onSubmit={(values, actions) => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
@@ -26,6 +25,7 @@ const CreateCall = () => (
           <Field name="volume" placeholder="Asset Volume" component={CustomInputComponent}/>
           <Field name="maturity_time" placeholder="Maturity Time" component={CustomInputComponent}/>
           <Field name="expiry_time" placeholder="Expiry Time" component={CustomInputComponent}/>
+          <p></p>
           <button type="submit">Create</button>
         </form>
       )}
