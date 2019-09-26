@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from './Home'
 import CreateCall from './CreateCall'
+import OperateCall from './OperateCall'
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -12,7 +13,8 @@ const Main = () => (
   <main>
     <Switch>
       <Route exact path='/' component={Home}/>
-      <Route path='/call' component={CreateCall}/>
+      <Route exact path='/call' component={CreateCall}/>
+      <Route path='/call/address/' component={OperateCall}/>
     </Switch>
   </main>
 )
