@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Field } from 'formik';
 import './App.css';
 
-const App = () => (
+const CreateCall = () => (
   <div>
     <h1>Create Call Option</h1>
     <Formik
@@ -45,4 +45,4 @@ const CustomInputComponent = ({
 );
 
 
-export default App;
+export default CreateCall;
