@@ -5,7 +5,6 @@ import './App.css';
 
 const CreateCall = () => (
   <body>
-    <Header />
     <h1>Create Call Option</h1>
     <Formik
       initialValues={{ buyer: '', base_addr: '', asset_addr:'',

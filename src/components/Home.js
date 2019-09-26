@@ -4,7 +4,6 @@ import './App.css';
 
 const Home = () => (
   <body>
-    <Header />
     <h1>Home</h1>
   </body>
 );
