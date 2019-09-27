@@ -3,7 +3,9 @@ import { Formik, Field } from 'formik';
 
 
 function CreateCall() {
-    const [result, setResult] = useState('')
+    const [preface, setPreface] = useState('');
+    const [urlPreface, setUrlPreface] = useState('');
+    const [result, setResult] = useState('');
 
     return (
       <body>
@@ -16,8 +18,11 @@ function CreateCall() {
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
               actions.setSubmitting(false);
-              var address = '';
-              setResult(`Shareable URL: /call/address/${address}`);
+              var address = '0x00000';
+
+              setPreface('Shareable URL: ');
+              setUrlPreface('https://otc.mx')
+              setResult(`/call/${address}`);
             }, 1000);
           }}
           render={(props: FormikProps<Values>) => (
@@ -36,7 +41,7 @@ function CreateCall() {
             </form>
           )}
         />
-        <p>{result}</p>
+        <p>{preface} <a href={result}>{urlPreface}{result}</a></p>
       </body>
     );
 }
