@@ -1,6 +1,6 @@
 const React = require('react');
 const Web3 = require('web3');
-const ProviderMappings = require('../utils/provider_mappings');
+const ProviderMappings = require('../utils/ProviderMappings');
 const OptionFactory = require('../atomicoptions/build/contracts/option_factory');
 
 const provider = 'http://localhost:8545'
