@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 
+import MetaMaskNotFound from './MetaMaskNotFound'
 
 function CreateCall() {
     const [preface, setPreface] = useState('');
     const [urlPreface, setUrlPreface] = useState('');
     const [result, setResult] = useState('');
+    const metamask_message = (typeof window.ethereum == 'undefined')? MetaMaskNotFound(): '';
 
     return (
       <body>
         <h1>Create Call Option</h1>
+        <p>{metamask_message}</p>
         <Formik
           initialValues={{ buyer: '', base_addr: '', asset_addr:'',
                           fee: '', strike_price_base: '', strike_price_quote: '',
