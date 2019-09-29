@@ -24,9 +24,6 @@ p {
   padding-left: 25px;
   background-color: white;
   min-width: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   color: black;
 }
 
