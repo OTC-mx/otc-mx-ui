@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 
+import ProviderMappings from '../utils/ProviderMappings'
 import MetaMaskNotFound from './MetaMaskNotFound'
 
 function CreateCall() {
     const [preface, setPreface] = useState('');
     const [urlPreface, setUrlPreface] = useState('');
     const [result, setResult] = useState('');
-    const metamask_message = (typeof window.ethereum == 'undefined')? MetaMaskNotFound(): '';
+    const metamask_message = ((typeof window.ethereum == 'undefined')?
+      MetaMaskNotFound():
+      function() { window.ethereum.enable(); return ''; });
 
     return (
       <body>
@@ -21,7 +24,7 @@ function CreateCall() {
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
               actions.setSubmitting(false);
-              var address = '0x00000';
+              let address = '0x00000';
 
               setPreface('Shareable URL: ');
               setUrlPreface('https://otc.mx')
