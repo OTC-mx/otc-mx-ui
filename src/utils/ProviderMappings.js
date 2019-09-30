@@ -2,7 +2,7 @@
 
 const factory_mappings = ({
   'http://localhost:8545': '0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B',
-  'local': '0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B',
+  'private': '0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B',
 });
 
 const local_token_mappings = ({
