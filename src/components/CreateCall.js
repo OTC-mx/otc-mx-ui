@@ -26,7 +26,7 @@ function CreateCall() {
     }
 
     return (
-      <body>
+      <div>
         <h1>Create Call Option</h1>
         <p>{metamask_message}</p>
         <Formik
@@ -40,13 +40,9 @@ function CreateCall() {
               (function () {
                 (async function () {
                   let web3 = new Web3(window.ethereum);
-                  // const web3 = new Web3(new Web3.providers.HttpProvider(window.ethereum));
-                  // 0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0
                   const network_type = await web3.eth.net.getNetworkType();
                   const factory_address = ProviderMappings.factory_mappings[network_type];
                   let option_factory = new web3.eth.Contract(OptionFactory.abi, factory_address);
-
-                  console.log(values);
                   let create_option_call = await (
                     option_factory
                     .methods
@@ -60,8 +56,8 @@ function CreateCall() {
                   let option_address_temp = create_option_call.events.NewOption.returnValues[0];
                   setOptionAddress(option_address_temp);
                   setPreface('Shareable URL: ');
-                  setUrlPreface('https://otc.mx')
-                  setResult(`/call/${optionAddress}`);
+                  setUrlPreface('https://otc.mx');
+                  setResult(`/call/${option_address_temp}`);
                 })();
               })();
             }, 1000);
@@ -83,7 +79,7 @@ function CreateCall() {
           )}
         />
         <p>{preface} <a href={result}>{urlPreface}{result}</a></p>
-      </body>
+      </div>
     );
 }
 const CustomInputComponent = ({
