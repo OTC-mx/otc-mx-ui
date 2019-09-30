@@ -12,7 +12,7 @@ import NotFound from './NotFound'
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
 const Main = () => (
-  <main>
+  <div>
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route exact path='/call' component={CreateCall}/>
@@ -20,7 +20,7 @@ const Main = () => (
       <Route path='/call/' component={OperateCall}/>
       <Route path='/' component={NotFound}/>
     </Switch>
-  </main>
+  </div>
 )
 
 export default Main;

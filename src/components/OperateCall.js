@@ -1,9 +1,9 @@
 import React from 'react';
 
 const OperateCall = () => (
-  <body>
+  <div>
     <h1>Operate Call Option</h1>
-  </body>
+  </div>
 );
 
 export default OperateCall;
