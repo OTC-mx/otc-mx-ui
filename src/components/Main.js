@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import Home from './Home'
 import CreateCall from './CreateCall'
 import OperateCall from './OperateCall'
-import Contact from './Contact'
+import About from './About'
 import NotFound from './NotFound'
 
 // The Main component renders one of the three provided
@@ -16,7 +16,7 @@ const Main = () => (
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route exact path='/call' component={CreateCall}/>
-      <Route exact path='/contact' component={Contact}/>
+      <Route exact path='/about' component={About}/>
       <Route path='/call/' component={OperateCall}/>
       <Route path='/' component={NotFound}/>
     </Switch>
