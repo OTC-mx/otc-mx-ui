@@ -4,6 +4,8 @@ import Web3 from 'web3';
 
 import ProviderMappings from '../utils/ProviderMappings';
 import OptionFactory from '../atomicoptions/build/contracts/option_factory';
+import ERC20 from '../atomicoptions/build/contracts/ERC20';
+import CallOption from '../atomicoptions/build/contracts/call_option';
 import MetaMaskNotFound from './MetaMaskNotFound';
 
 function CreateCall() {
@@ -42,6 +44,7 @@ function CreateCall() {
                   let web3 = new Web3(window.ethereum);
                   const network_type = await web3.eth.net.getNetworkType();
                   const factory_address = ProviderMappings.factory_mappings[network_type];
+
                   let option_factory = new web3.eth.Contract(OptionFactory.abi, factory_address);
                   let create_option_call = await (
                     option_factory
@@ -54,6 +57,23 @@ function CreateCall() {
                     .send({ from: accounts[0] })
                   );
                   let option_address_temp = create_option_call.events.NewOption.returnValues[0];
+
+                  let asset = new web3.eth.Contract(ERC20.abi, values.asset_addr);
+                  let transfer_call = await (
+                    asset
+                    .methods
+                    .transfer(option_address_temp, values.volume)
+                    .send({ from: accounts[0] })
+                  );
+
+                  let call_option = new web3.eth.Contract(CallOption.abi, option_address_temp);
+                  let check_collateralization_call = await (
+                    call_option
+                    .methods
+                    .check_collateralization()
+                    .send({ from: accounts[0] })
+                  );
+
                   setOptionAddress(option_address_temp);
                   setPreface('Shareable URL: ');
                   setUrlPreface('https://otc.mx');
@@ -78,7 +98,7 @@ function CreateCall() {
             </form>
           )}
         />
-        <p>{preface} <a href={result}>{urlPreface}{result}</a></p>
+        <p>{preface} <a href={result} target="_blank">{urlPreface}{result}</a></p>
       </div>
     );
 }
