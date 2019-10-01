@@ -6,9 +6,15 @@ import './App.css'
 
 const App = () => (
   <div>
-    <Header />
-    <Main />
-    <Footer />
+    <div id="page-container">
+      <div id="upper">
+        <Header />
+        <Main />
+      </div>
+      <div id="footer">
+        <Footer />
+      </div>
+    </div>
   </div>
 )
 
