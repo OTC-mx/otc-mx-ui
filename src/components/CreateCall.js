@@ -3,6 +3,7 @@ import { Formik, Field } from 'formik';
 import Web3 from 'web3';
 
 import ProviderMappings from '../utils/ProviderMappings';
+import CustomInputComponent from '../utils/FormikUtils';
 import OptionFactory from '../atomicoptions/build/contracts/option_factory';
 import ERC20 from '../atomicoptions/build/contracts/ERC20';
 import CallOption from '../atomicoptions/build/contracts/call_option';
@@ -73,7 +74,6 @@ function CreateCall() {
                   .check_collateralization()
                   .send({ from: accounts[0] })
                 );
-
                 setOptionAddress(option_address_temp);
                 setPreface('Shareable URL: ');
                 setUrlPreface('https://otc.mx');
@@ -98,21 +98,10 @@ function CreateCall() {
           </form>
         )}
       />
-      <p>{preface} <a href={result} target="_blank">{urlPreface}{result}</a></p>
+      <p>{preface} <a href={result} target="_blank" rel="noopener noreferrer">{urlPreface}{result}</a></p>
     </div>
   );
 }
-const CustomInputComponent = ({
-  field, // { name, value, onChange, onBlur }
-  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-  ...props
-}) => (
-  <div>
-    <input type="text" {...field} {...props} />
-    {touched[field.name] &&
-      errors[field.name] && <div className="error">{errors[field.name]}</div>}
-  </div>
-);
 
 
 export default CreateCall;
