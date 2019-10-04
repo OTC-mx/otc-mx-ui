@@ -5,8 +5,10 @@ import Web3 from 'web3';
 import CustomInputComponent from '../utils/FormikUtils';
 import { state_mappings } from '../utils/StateMappings';
 import MetaMaskNotFound from './MetaMaskNotFound';
-import PayFee from './PayFee';
 import CallOption from '../atomicoptions/build/contracts/call_option';
+
+import OptionNotInitialized from './widgets/OptionNotInitialized';
+import PayFee from './widgets/PayFee';
 
 function OperateCall() {
   const [accounts, setAccounts] = useState([]);
@@ -50,6 +52,7 @@ function OperateCall() {
     function operate_display(contract_state) {
       return (
         {
+          // '0': OptionNotInitialized(),
           '0': PayFee(web3, callOption, optionAddress, accounts,
              state_mappings, optionInfo, setOptionInfo),
           '1': PayFee(web3, callOption, optionAddress, accounts,
