@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Field } from 'formik';
 import Web3 from 'web3';
 
-import CustomInputComponent from '../utils/FormikUtils';
-import { state_mappings } from '../utils/StateMappings';
-import MetaMaskNotFound from './MetaMaskNotFound';
-import CallOption from '../atomicoptions/build/contracts/call_option';
+import CustomInputComponent from '../../utils/FormikUtils';
+import { state_mappings } from '../../utils/StateMappings';
+import CallOption from '../../atomicoptions/build/contracts/call_option';
 
-import OptionNotInitialized from './widgets/OptionNotInitialized';
-import PayFee from './widgets/PayFee';
+import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import OptionNotInitialized from '../widgets/OptionNotInitialized';
+import PayFee from '../widgets/PayFee';
 
 function OperateCall() {
   const [accounts, setAccounts] = useState([]);

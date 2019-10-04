@@ -1,11 +1,11 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Home from './Home'
-import Whitepaper from './Whitepaper'
-import CreateCall from './CreateCall'
-import OperateCall from './OperateCall'
-import About from './About'
-import NotFound from './NotFound'
+import Home from './pages/Home'
+import Whitepaper from './pages/Whitepaper'
+import CreateCall from './pages/CreateCall'
+import OperateCall from './pages/OperateCall'
+import About from './pages/About'
+import NotFound from './pages/NotFound'
 
 const Main = () => (
   <div>

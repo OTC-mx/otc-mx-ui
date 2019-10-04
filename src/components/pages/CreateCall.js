@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import Web3 from 'web3';
 
-import ProviderMappings from '../utils/ProviderMappings';
-import CustomInputComponent from '../utils/FormikUtils';
-import OptionFactory from '../atomicoptions/build/contracts/option_factory';
-import ERC20 from '../atomicoptions/build/contracts/ERC20';
-import CallOption from '../atomicoptions/build/contracts/call_option';
-import MetaMaskNotFound from './MetaMaskNotFound';
+import ProviderMappings from '../../utils/ProviderMappings';
+import CustomInputComponent from '../../utils/FormikUtils';
+import OptionFactory from '../../atomicoptions/build/contracts/option_factory';
+import ERC20 from '../../atomicoptions/build/contracts/ERC20';
+import CallOption from '../../atomicoptions/build/contracts/call_option';
+import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 
 function CreateCall() {
   const [preface, setPreface] = useState('');
