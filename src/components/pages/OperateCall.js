@@ -9,6 +9,7 @@ import CallOption from '../../atomicoptions/build/contracts/call_option';
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 import OptionNotInitialized from '../widgets/OptionNotInitialized';
 import PayFee from '../widgets/PayFee';
+import ExerciseExpire from '../widgets/ExerciseExpire';
 
 function OperateCall() {
   const [accounts, setAccounts] = useState([]);
@@ -53,10 +54,16 @@ function OperateCall() {
       return (
         {
           // '0': OptionNotInitialized(),
-          '0': PayFee(web3, callOption, optionAddress, accounts,
+          '0': ExerciseExpire(web3, callOption, optionAddress, accounts,
              state_mappings, optionInfo, setOptionInfo),
-          '1': PayFee(web3, callOption, optionAddress, accounts,
-             state_mappings, optionInfo, setOptionInfo)
+          '1': OptionNotInitialized(),
+          '2': PayFee(web3, callOption, optionAddress, accounts,
+             state_mappings, optionInfo, setOptionInfo),
+          '3': ExerciseExpire(web3, callOption, optionAddress, accounts,
+             state_mappings, optionInfo, setOptionInfo),
+          '4': ExerciseExpire(web3, callOption, optionAddress, accounts,
+             state_mappings, optionInfo, setOptionInfo),
+          // '5': ContractExpired()
         }[contract_state]
       );
     }
