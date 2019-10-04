@@ -6,7 +6,7 @@ import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
 import OptionFactory from '../../atomicoptions/build/contracts/option_factory';
 import ERC20 from '../../atomicoptions/build/contracts/ERC20';
-import CallOption from '../../atomicoptions/build/contracts/call_option';
+import Option from '../../atomicoptions/build/contracts/option';
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 
 function CreateCall() {
@@ -67,9 +67,9 @@ function CreateCall() {
                   .send({ from: accounts[0] })
                 );
 
-                let call_option = new web3.eth.Contract(CallOption.abi, option_address_temp);
+                let option = new web3.eth.Contract(Option.abi, option_address_temp);
                 let check_collateralization_call = await (
-                  call_option
+                  option
                   .methods
                   .check_collateralization()
                   .send({ from: accounts[0] })

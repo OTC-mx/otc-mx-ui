@@ -4,7 +4,7 @@ import Web3 from 'web3';
 
 import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
-import CallOption from '../../atomicoptions/build/contracts/call_option';
+import Option from '../../atomicoptions/build/contracts/option';
 
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 import OptionNotInitialized from '../widgets/OptionNotInitialized';
@@ -15,7 +15,7 @@ function OperateCall() {
   const [accounts, setAccounts] = useState([]);
   const [web3, setWeb3] = useState({});
   const [optionAddress, setOptionAddress] = useState({});
-  const [callOption, setCallOption] = useState({});
+  const [option, setOption] = useState({});
   const [optionInfo, setOptionInfo] = useState([]);
 
   useEffect(() => {
@@ -26,10 +26,10 @@ function OperateCall() {
         let web3_temp = new Web3(window.ethereum);
         let option_address_temp = window.location.pathname.split("/").filter((e) => e !== "").pop();
 
-        let call_option_temp = new web3_temp.eth.Contract(CallOption.abi, option_address_temp);
+        let option_temp = new web3_temp.eth.Contract(Option.abi, option_address_temp);
 
         let option_info_call = await (
-          call_option_temp
+          option_temp
           .methods
           .get_info()
           .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
@@ -37,7 +37,7 @@ function OperateCall() {
         setAccounts(accounts_temp);
         setWeb3(web3_temp);
         setOptionAddress(option_address_temp);
-        setCallOption(call_option_temp);
+        setOption(option_temp);
         setOptionInfo(option_info_call);
       })();
     })();
@@ -54,14 +54,14 @@ function OperateCall() {
       return (
         {
           // '0': OptionNotInitialized(),
-          '0': ExerciseExpire(web3, callOption, optionAddress, accounts,
+          '0': ExerciseExpire(web3, option, optionAddress, accounts,
              state_mappings, optionInfo, setOptionInfo),
           '1': OptionNotInitialized(),
-          '2': PayFee(web3, callOption, optionAddress, accounts,
+          '2': PayFee(web3, option, optionAddress, accounts,
              state_mappings, optionInfo, setOptionInfo),
-          '3': ExerciseExpire(web3, callOption, optionAddress, accounts,
+          '3': ExerciseExpire(web3, option, optionAddress, accounts,
              state_mappings, optionInfo, setOptionInfo),
-          '4': ExerciseExpire(web3, callOption, optionAddress, accounts,
+          '4': ExerciseExpire(web3, option, optionAddress, accounts,
              state_mappings, optionInfo, setOptionInfo),
           // '5': ContractExpired()
         }[contract_state]
