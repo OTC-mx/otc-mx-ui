@@ -16,16 +16,16 @@ const PayFee = (web3, option, option_address, accounts, state_mappings, optionIn
         (function () {
           (async function () {
             let base = new web3.eth.Contract(ERC20.abi, optionInfo[2]);
-            let transfer_call = await (
+            let approve_call = await (
               base
               .methods
-              .transfer(option_address, optionInfo[4])
+              .approve(option_address, optionInfo[4])
               .send({ from: accounts[0] })
             );
-            let check_collateralization_call = await (
+            let pay_fee_call = await (
               option
               .methods
-              .relay_fee()
+              .pay_fee()
               .send({ from: accounts[0] })
             );
             let option_info_call = await (

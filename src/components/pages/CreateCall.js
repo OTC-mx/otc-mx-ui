@@ -60,10 +60,10 @@ function CreateCall() {
                 let option_address_temp = create_option_call.events.NewOption.returnValues[0];
 
                 let asset = new web3.eth.Contract(ERC20.abi, values.asset_addr);
-                let transfer_call = await (
+                let approve_call = await (
                   asset
                   .methods
-                  .transfer(option_address_temp, values.volume)
+                  .approve(option_address_temp, values.volume)
                   .send({ from: accounts[0] })
                 );
 
@@ -71,7 +71,7 @@ function CreateCall() {
                 let check_collateralization_call = await (
                   option
                   .methods
-                  .check_collateralization()
+                  .collateralize()
                   .send({ from: accounts[0] })
                 );
                 setOptionAddress(option_address_temp);
