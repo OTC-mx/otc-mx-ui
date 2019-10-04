@@ -31,7 +31,7 @@ function CreateCall() {
   return (
     <div>
       <h1>Create Call Option</h1>
-      <p>{metamask_message}</p>
+      <div>{metamask_message}</div>
       <Formik
         initialValues={{ buyer: '', base_addr: '', asset_addr:'',
                         fee: '', strike_price_base: '', strike_price_quote: '',

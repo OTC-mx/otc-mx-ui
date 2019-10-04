@@ -89,3 +89,7 @@ table {
 th, td {
  padding-left: 15px;
 }
+
+#nested {
+  padding-left: 0px;
+}
