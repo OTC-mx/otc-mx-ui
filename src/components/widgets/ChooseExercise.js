@@ -13,6 +13,10 @@ function ChooseExercise(web3, option, option_address, accounts, state_mappings, 
            state_mappings, optionInfo, setOptionInfo),
         // 'silentcall': ExerciseSilentCall(web3, option, optionAddress, accounts,
         //   state_mappings, optionInfo, setOptionInfo),
+        // 'put': ExercisePut(web3, option, optionAddress, accounts,
+        //   state_mappings, optionInfo, setOptionInfo),
+        // 'silentput': ExerciseSilentPut(web3, option, optionAddress, accounts,
+        //   state_mappings, optionInfo, setOptionInfo),
       }[url_stub]
     );
   };

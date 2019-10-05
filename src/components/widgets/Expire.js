@@ -1,33 +1,24 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 
-import CustomInputComponent from '../../utils/FormikUtils';
-
 import ERC20 from '../../atomicoptions/build/contracts/ERC20';
 
-const ExerciseCall = (web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo) => (
+const Expire = (web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo) => (
   <div>
-  <h2>Exercise this Option</h2>
+  <h2>Expire this Option</h2>
 
   <Formik
     id = "nested"
-    initialValues={{amount: ''}}
+    initialValues={{}}
     onSubmit={(values, actions) => {
       setTimeout(() => {
         actions.setSubmitting(false);
         (function () {
           (async function () {
-            let base = new web3.eth.Contract(ERC20.abi, optionInfo[2]);
-            let approve_call = await (
-              base
-              .methods
-              .approve(option_address, values.amount)
-              .send({ from: accounts[0] })
-            );
-            let exercise_option_call = await (
+            let expire_call = await (
               option
               .methods
-              .exercise_from_asset(values.amount)
+              .expire()
               .send({ from: accounts[0] })
             );
             let option_info_call = await (
@@ -35,6 +26,7 @@ const ExerciseCall = (web3, option, option_address, accounts, state_mappings, op
               .methods
               .get_info()
               .call({ from: accounts[0] }, (error, result) => console.log(result) ));
+
             setOptionInfo(option_info_call);
           })();
         })();
@@ -42,13 +34,11 @@ const ExerciseCall = (web3, option, option_address, accounts, state_mappings, op
     }}
     render={(props: FormikProps<Values>) => (
       <form onSubmit={props.handleSubmit}>
-        <Field name="amount" placeholder="Amount of Asset to Buy" component={CustomInputComponent}/>
-        <p></p>
-        <button type="submit">Exercise</button>
+        <button type="submit">Expire</button>
       </form>
     )}
   />
   </div>
 );
 
-export default ExerciseCall;
+export default Expire;

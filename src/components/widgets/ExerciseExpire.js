@@ -1,13 +1,33 @@
 import React from 'react';
 
 import ChooseExercise from './ChooseExercise';
+import Expire from './Expire'
+import NoAction from './NoAction'
+import Nonparticipant from './Nonparticipant'
 
 function ExerciseExpire(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo) {
 
   function choose_widget() {
-    return(
-      ChooseExercise(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo)
-    );
+    let current_time = Math.floor(Date.now() / 1000);
+    if (accounts[0] == optionInfo[1]) {
+      let state_exercisable = ((optionInfo[10] == 3) || (optionInfo[10] == 4));
+      let time_exercisable = ((current_time > optionInfo[8]) && (current_time < optionInfo[9]));
+      if (state_exercisable && time_exercisable) {
+        return(ChooseExercise(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo));
+      } else {
+        return(NoAction());
+      }
+    } else if (accounts[0] == optionInfo[1]) {
+      let complete_expirable = (current_time > optionInfo[9]) && (optionInfo[10] !== 5);
+      let abort_expirable = (optionInfo[10] == 2);
+      if (complete_expirable || abort_expirable) {
+        return(Expire(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo));
+      } else {
+        return(NoAction());
+      }
+    } else {
+      return(Nonparticipant());
+    }
   };
 
   return(
