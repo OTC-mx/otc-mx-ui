@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ExerciseCall from './ExerciseCall';
+import ExerciseSilentCall from './ExerciseSilentCall';
 
 function ChooseExercise(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo) {
   function choose_exercise() {
@@ -11,11 +12,11 @@ function ChooseExercise(web3, option, option_address, accounts, state_mappings, 
       {
         'call': ExerciseCall(web3, option, option_address, accounts,
            state_mappings, optionInfo, setOptionInfo),
-        // 'silentcall': ExerciseSilentCall(web3, option, optionAddress, accounts,
+        'silentcall': ExerciseSilentCall(web3, option, option_address, accounts,
+          state_mappings, optionInfo, setOptionInfo),
+        // 'put': ExercisePut(web3, option, option_address, accounts,
         //   state_mappings, optionInfo, setOptionInfo),
-        // 'put': ExercisePut(web3, option, optionAddress, accounts,
-        //   state_mappings, optionInfo, setOptionInfo),
-        // 'silentput': ExerciseSilentPut(web3, option, optionAddress, accounts,
+        // 'silentput': ExerciseSilentPut(web3, option, option_address, accounts,
         //   state_mappings, optionInfo, setOptionInfo),
       }[url_stub]
     );
