@@ -17,7 +17,7 @@ function ExerciseExpire(web3, option, option_address, accounts, state_mappings, 
       } else {
         return(NoAction());
       }
-    } else if (accounts[0] == optionInfo[1]) {
+    } else if (accounts[0] == optionInfo[0]) {
       let complete_expirable = (current_time > optionInfo[9]) && (optionInfo[10] !== 5);
       let abort_expirable = (optionInfo[10] == 2);
       if (complete_expirable || abort_expirable) {
