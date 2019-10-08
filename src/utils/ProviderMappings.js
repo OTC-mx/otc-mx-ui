@@ -3,6 +3,7 @@
 const option_factory_mappings = ({
   'http://localhost:8545': '0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B',
   'private': '0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B',
+  'ropsten': '0xBcafbb9e481633B9A12Ae4DcFA6e35735542fCF2',
 });
 
 const silent_option_factory_mappings = ({
@@ -13,6 +14,11 @@ const silent_option_factory_mappings = ({
 const local_token_mappings = ({
   'a': '0x59d3631c86BbE35EF041872d502F218A39FBa150',
   'b': '0xD3aA556287Afe63102e5797BFDDd2A1E8DbB3eA5',
+});
+
+const ropsten_token_mappings = ({
+  'a': '0x04156193A576e1D8B00d72A41e773EC08F32Da41',
+  'b': '0x8539E31BE22DE64d51477Ce9930d7b1aCBFe2b47',
 });
 
 module.exports.option_factory_mappings = option_factory_mappings;
