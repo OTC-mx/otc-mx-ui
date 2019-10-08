@@ -6,7 +6,7 @@ import NoAction from './NoAction'
 import Nonparticipant from './Nonparticipant'
 
 function ExerciseExpire(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo) {
-  
+
   function choose_widget() {
     let current_time = Math.floor(Date.now() / 1000);
     let address_lower = `${accounts[0]}`.trim().toLowerCase();
@@ -21,7 +21,7 @@ function ExerciseExpire(web3, option, option_address, accounts, state_mappings, 
       } else {
         return(NoAction());
       }
-    } else if (address_lower == issuer_lower) {
+    } else if (address_lower === issuer_lower) {
       let complete_expirable = (current_time > optionInfo[9]) && (optionInfo[10] !== 5);
       let abort_expirable = (optionInfo[10] == 2);
       if (complete_expirable || abort_expirable) {
