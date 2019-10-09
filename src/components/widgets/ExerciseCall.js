@@ -20,8 +20,8 @@ const ExerciseCall = (web3, option, option_address, accounts, state_mappings, op
             let base = new web3.eth.Contract(ERC20.abi, optionInfo[2]);
             let asset_exercised = web3.utils.toBN(values.amount);
             let base_exercised = (asset_exercised
-              .mul(web3.utils.toBN(strike_price_quote))
-              .div(web3.utils.toBN(strike_price_base))
+              .mul(web3.utils.toBN(optionInfo[6]))
+              .div(web3.utils.toBN(optionInfo[5]))
             );
             let approve_call = await (
               base
