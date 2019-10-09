@@ -68,7 +68,7 @@ function CreateCall() {
                 );
 
                 let option = new web3.eth.Contract(Option.abi, option_address_temp);
-                let check_collateralization_call = await (
+                let collateralize_call = await (
                   option
                   .methods
                   .collateralize()

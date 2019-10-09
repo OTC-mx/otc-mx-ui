@@ -18,16 +18,22 @@ const ExerciseSilentCall = (web3, silent_option, silent_option_address, accounts
         (function () {
           (async function () {
             let base = new web3.eth.Contract(ERC20.abi, silentOptionInfo[2]);
+            let asset_exercised = web3.utils.toBN(values.amount);
+            let base_exercised = (asset_exercised
+              .mul(web3.utils.toBN(values.strike_price_quote))
+              .div(web3.utils.toBN(values.strike_price_base))
+            );
             let approve_call = await (
               base
               .methods
-              .approve(silent_option_address, values.amount)
+              .approve(silent_option_address, base_exercised.toString())
               .send({ from: accounts[0] })
             );
             let exercise_silent_option_call = await (
               silent_option
               .methods
-              .exercise_from_asset(values.strike_price_base, values.strike_price_quote, values.salt, values.amount)
+              .exercise_from_asset(values.strike_price_base,
+                values.strike_price_quote, values.salt, asset_exercised.toString())
               .send({ from: accounts[0] })
             );
             let silent_option_info_call = await (

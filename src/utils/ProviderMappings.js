@@ -4,13 +4,13 @@ const option_factory_mappings = ({
   'http://localhost:8545': '0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B',
   'private': '0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B',
   'ropsten': '0xBcafbb9e481633B9A12Ae4DcFA6e35735542fCF2',
-  'rinkeby': '0xF746f1E86617920c9933A2a39CAbAc7dCeaAB5E8',
+  'rinkeby': '0xafF7c772D52E153C4Dbef94f2B86102bB232F70d',
 });
 
 const silent_option_factory_mappings = ({
   'http://localhost:8545': '0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7',
   'private': '0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7',
-  'rinkeby': '0xb0282cBCd5E36ECeB83313DCEeC2b65EaFe3A57e',
+  'rinkeby': '0x502eB5D30cd4714A67bF0Da78D348FD5D78E6a06',
 });
 
 const local_token_mappings = ({
@@ -24,8 +24,8 @@ const ropsten_token_mappings = ({
 });
 
 const rinkeby_token_mappings = ({
-  'a': '0x1fF7E7ca119B389aBa279afc7E71De65aeA24500',
-  'b': '0x82Ef83965bA1d074B4b3Aaa132d362309de10E85',
+  'a': '0x86abBC560adBe54CCb2ddfDb58A4Cf11e930396B',
+  'b': '0x900D84D4558b1ef6C2103b361F9aA14ac8Df227A',
 });
 
 module.exports.option_factory_mappings = option_factory_mappings;

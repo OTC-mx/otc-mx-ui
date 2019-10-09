@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import Web3 from 'web3';
+import { ethers } from 'ethers'
 
 import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
@@ -35,7 +36,7 @@ function CreateSilentCall() {
       <Formik
         initialValues={{ buyer: '', base_addr: '', asset_addr:'',
                         fee: '', strike_price_base_hash: '', strike_price_quote_hash: '',
-                        volume: '', maturity_time: '', expiry_time:''}}
+                        volume: '', maturity_time: '', expiry_time: '', salt: ''}}
         onSubmit={(values, actions) => {
           setTimeout(() => {
             actions.setSubmitting(false);
@@ -46,13 +47,19 @@ function CreateSilentCall() {
                 const network_type = await web3.eth.net.getNetworkType();
                 const factory_address = ProviderMappings.silent_option_factory_mappings[network_type];
 
+                let salt = ethers.utils.hexZeroPad(ethers.utils.hexlify(values.salt), 32);
+                let strike_price_base_hex = ethers.utils.hexZeroPad(ethers.utils.hexlify(values.strike_price_base), 32);
+                let strike_price_quote_hex = ethers.utils.hexZeroPad(ethers.utils.hexlify(values.strike_price_quote), 32);
+                let strike_price_base_hash = web3.utils.soliditySha3(strike_price_base_hex, salt);
+                let strike_price_quote_hash = web3.utils.soliditySha3(strike_price_quote_hex, salt);
+
                 let silent_option_factory = new web3.eth.Contract(SilentOptionFactory.abi, factory_address);
                 let create_silent_option_call = await (
                   silent_option_factory
                   .methods
                   .createSilentOption(accounts[0], values.buyer,
                     values.base_addr, values.asset_addr,
-                    values.fee, values.strike_price_base_hash, values.strike_price_quote_hash,
+                    values.fee, strike_price_base_hash, strike_price_quote_hash,
                     values.volume,
                     values.maturity_time, values.expiry_time)
                   .send({ from: accounts[0] })
@@ -68,7 +75,7 @@ function CreateSilentCall() {
                 );
 
                 let silent_option = new web3.eth.Contract(SilentOption.abi, silent_option_address_temp);
-                let check_collateralization_call = await (
+                let collateralize_call = await (
                   silent_option
                   .methods
                   .collateralize()
@@ -88,11 +95,12 @@ function CreateSilentCall() {
             <Field name="base_addr" placeholder="Base Token Address" component={CustomInputComponent}/>
             <Field name="asset_addr" placeholder="Asset Address" component={CustomInputComponent}/>
             <Field name="fee" placeholder="Option Fee" component={CustomInputComponent}/>
-            <Field name="strike_price_base_hash" placeholder="Base Price Hash" component={CustomInputComponent}/>
-            <Field name="strike_price_quote_hash" placeholder="Quote Price Hash" component={CustomInputComponent}/>
+            <Field name="strike_price_base" placeholder="Base Price" component={CustomInputComponent}/>
+            <Field name="strike_price_quote" placeholder="Quote Price" component={CustomInputComponent}/>
             <Field name="volume" placeholder="Asset Volume" component={CustomInputComponent}/>
             <Field name="maturity_time" placeholder="Maturity Time" component={CustomInputComponent}/>
             <Field name="expiry_time" placeholder="Expiry Time" component={CustomInputComponent}/>
+            <Field name="salt" placeholder="Cryptographic Salt" component={CustomInputComponent}/>
             <p></p>
             <button type="submit">Create</button>
           </form>

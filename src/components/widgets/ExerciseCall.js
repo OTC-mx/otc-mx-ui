@@ -18,16 +18,21 @@ const ExerciseCall = (web3, option, option_address, accounts, state_mappings, op
         (function () {
           (async function () {
             let base = new web3.eth.Contract(ERC20.abi, optionInfo[2]);
+            let asset_exercised = web3.utils.toBN(values.amount);
+            let base_exercised = (asset_exercised
+              .mul(web3.utils.toBN(strike_price_quote))
+              .div(web3.utils.toBN(strike_price_base))
+            );
             let approve_call = await (
               base
               .methods
-              .approve(option_address, values.amount)
+              .approve(option_address, base_exercised.toString())
               .send({ from: accounts[0] })
             );
             let exercise_option_call = await (
               option
               .methods
-              .exercise_from_asset(values.amount)
+              .exercise_from_asset(asset_exercised.toString())
               .send({ from: accounts[0] })
             );
             let option_info_call = await (
