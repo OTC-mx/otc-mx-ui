@@ -47,9 +47,11 @@ function CreateSilentCall() {
                 const network_type = await web3.eth.net.getNetworkType();
                 const factory_address = ProviderMappings.silent_option_factory_mappings[network_type];
 
+                let strike_price_base = web3.utils.numberToHex(values.strike_price_base);
+                let strike_price_quote = web3.utils.numberToHex(values.strike_price_quote);
                 let salt = ethers.utils.hexZeroPad(ethers.utils.hexlify(values.salt), 32);
-                let strike_price_base_hex = ethers.utils.hexZeroPad(ethers.utils.hexlify(values.strike_price_base), 32);
-                let strike_price_quote_hex = ethers.utils.hexZeroPad(ethers.utils.hexlify(values.strike_price_quote), 32);
+                let strike_price_base_hex = ethers.utils.hexZeroPad(strike_price_base, 32);
+                let strike_price_quote_hex = ethers.utils.hexZeroPad(strike_price_quote, 32);
                 let strike_price_base_hash = web3.utils.soliditySha3(strike_price_base_hex, salt);
                 let strike_price_quote_hash = web3.utils.soliditySha3(strike_price_quote_hex, salt);
 
@@ -100,7 +102,7 @@ function CreateSilentCall() {
             <Field name="volume" placeholder="Asset Volume" component={CustomInputComponent}/>
             <Field name="maturity_time" placeholder="Maturity Time" component={CustomInputComponent}/>
             <Field name="expiry_time" placeholder="Expiry Time" component={CustomInputComponent}/>
-            <Field name="salt" placeholder="Cryptographic Salt" component={CustomInputComponent}/>
+            <Field name="salt" placeholder="Cryptographic Salt (hex)" component={CustomInputComponent}/>
             <p></p>
             <button type="submit">Create</button>
           </form>
