@@ -47,11 +47,11 @@ function CreateSilentCall() {
                 const network_type = await web3.eth.net.getNetworkType();
                 const factory_address = ProviderMappings.silent_option_factory_mappings[network_type];
 
-                let strike_price_base = web3.utils.numberToHex(values.strike_price_base);
-                let strike_price_quote = web3.utils.numberToHex(values.strike_price_quote);
+                let strike_price_base_unpad = ethers.utils.hexlify(Number(values.strike_price_base));
+                let strike_price_quote_unpad = ethers.utils.hexlify(Number(values.strike_price_quote));
                 let salt = ethers.utils.hexZeroPad(ethers.utils.hexlify(values.salt), 32);
-                let strike_price_base_hex = ethers.utils.hexZeroPad(strike_price_base, 32);
-                let strike_price_quote_hex = ethers.utils.hexZeroPad(strike_price_quote, 32);
+                let strike_price_base_hex = ethers.utils.hexZeroPad(strike_price_base_unpad, 32);
+                let strike_price_quote_hex = ethers.utils.hexZeroPad(strike_price_quote_unpad, 32);
                 let strike_price_base_hash = web3.utils.soliditySha3(strike_price_base_hex, salt);
                 let strike_price_quote_hash = web3.utils.soliditySha3(strike_price_quote_hex, salt);
 

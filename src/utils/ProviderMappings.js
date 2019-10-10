@@ -9,7 +9,7 @@ const option_factory_mappings = ({
 const silent_option_factory_mappings = ({
   'http://localhost:8545': '0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7',
   'private': '0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7',
-  'rinkeby': '0x502eB5D30cd4714A67bF0Da78D348FD5D78E6a06',
+  'rinkeby': '0x9380Ed33904F2AEd5Cf3d0042CC27Dd2CE49a406',
 });
 
 const local_token_mappings = ({

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
+import { ethers } from 'ethers';
 
 import CustomInputComponent from '../../utils/FormikUtils';
 
@@ -23,6 +24,8 @@ const ExerciseSilentCall = (web3, silent_option, silent_option_address, accounts
               .mul(web3.utils.toBN(values.strike_price_quote))
               .div(web3.utils.toBN(values.strike_price_base))
             );
+            let salt = ethers.utils.hexZeroPad(ethers.utils.hexlify(values.salt), 32);
+            
             let approve_call = await (
               base
               .methods
@@ -33,7 +36,7 @@ const ExerciseSilentCall = (web3, silent_option, silent_option_address, accounts
               silent_option
               .methods
               .exercise_from_asset(values.strike_price_base,
-                values.strike_price_quote, values.salt, asset_exercised.toString())
+                values.strike_price_quote, salt, asset_exercised.toString())
               .send({ from: accounts[0] })
             );
             let silent_option_info_call = await (
