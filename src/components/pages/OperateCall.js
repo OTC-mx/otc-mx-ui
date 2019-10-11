@@ -104,11 +104,11 @@ function OperateCall() {
               <th>{optionInfo[7]}</th>
             </tr>
             <tr>
-              <th>Maturity Time</th>
+              <th>Maturity Time (Unix)</th>
               <th>{optionInfo[8]}</th>
             </tr>
             <tr>
-              <th>Expiry Time</th>
+              <th>Expiry Time (Unix)</th>
               <th>{optionInfo[9]}</th>
             </tr>
             <tr>

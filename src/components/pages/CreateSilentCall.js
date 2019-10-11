@@ -100,8 +100,8 @@ function CreateSilentCall() {
             <Field name="strike_price_base" placeholder="Base Price" component={CustomInputComponent}/>
             <Field name="strike_price_quote" placeholder="Quote Price" component={CustomInputComponent}/>
             <Field name="volume" placeholder="Asset Volume" component={CustomInputComponent}/>
-            <Field name="maturity_time" placeholder="Maturity Time" component={CustomInputComponent}/>
-            <Field name="expiry_time" placeholder="Expiry Time" component={CustomInputComponent}/>
+            <Field name="maturity_time" placeholder="Maturity Time (Unix)" component={CustomInputComponent}/>
+            <Field name="expiry_time" placeholder="Expiry Time (Unix)" component={CustomInputComponent}/>
             <Field name="salt" placeholder="Cryptographic Salt (hex)" component={CustomInputComponent}/>
             <p></p>
             <button type="submit">Create</button>
