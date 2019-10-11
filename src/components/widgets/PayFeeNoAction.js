@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PayFee from './PayFee';
-import NoAction from './NoAction'
+import ExpireAbort from './ExpireAbort'
 import Nonparticipant from './Nonparticipant'
 
 function PayFeeNoAction(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo) {
@@ -15,7 +15,7 @@ function PayFeeNoAction(web3, option, option_address, accounts, state_mappings, 
     if (address_lower == buyer_lower) {
       return(PayFee(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo));
     } else if (address_lower == issuer_lower) {
-      return(NoAction());
+      return(ExpireAbort(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo));
     } else {
       return(Nonparticipant());
     }
