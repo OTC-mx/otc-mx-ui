@@ -4,7 +4,7 @@ import Web3 from 'web3';
 
 import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
-import Option from '../../atomicoptions/build/contracts/option';
+import Option from '../../atomicoptions/build/contracts/Option';
 
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 import OptionNotInitialized from '../widgets/OptionNotInitialized';

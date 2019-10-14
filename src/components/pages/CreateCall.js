@@ -4,9 +4,9 @@ import Web3 from 'web3';
 
 import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
-import OptionFactory from '../../atomicoptions/build/contracts/option_factory';
+import OptionFactory from '../../atomicoptions/build/contracts/OptionFactory';
 import ERC20 from '../../atomicoptions/build/contracts/ERC20';
-import Option from '../../atomicoptions/build/contracts/option';
+import Option from '../../atomicoptions/build/contracts/Option';
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 
 function CreateCall() {
@@ -50,7 +50,7 @@ function CreateCall() {
                 let create_option_call = await (
                   option_factory
                   .methods
-                  .createOption(accounts[0], values.buyer,
+                  .create_option(accounts[0], values.buyer,
                     values.base_addr, values.asset_addr,
                     values.fee, values.strike_price_base, values.strike_price_quote,
                     values.volume,

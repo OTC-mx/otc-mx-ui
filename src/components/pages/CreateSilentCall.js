@@ -5,9 +5,9 @@ import { ethers } from 'ethers'
 
 import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
-import SilentOptionFactory from '../../atomicoptions/build/contracts/silent_option_factory';
+import SilentOptionFactory from '../../atomicoptions/build/contracts/SilentOptionFactory';
 import ERC20 from '../../atomicoptions/build/contracts/ERC20';
-import SilentOption from '../../atomicoptions/build/contracts/silent_option';
+import SilentOption from '../../atomicoptions/build/contracts/SilentOption';
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 
 function CreateSilentCall() {
@@ -59,7 +59,7 @@ function CreateSilentCall() {
                 let create_silent_option_call = await (
                   silent_option_factory
                   .methods
-                  .createSilentOption(accounts[0], values.buyer,
+                  .create_silent_option(accounts[0], values.buyer,
                     values.base_addr, values.asset_addr,
                     values.fee, strike_price_base_hash, strike_price_quote_hash,
                     values.volume,
