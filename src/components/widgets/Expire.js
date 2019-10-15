@@ -1,11 +1,11 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 
-import ERC20 from '../../atomicoptions/build/contracts/ERC20';
+import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
-const Expire = (web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo) => (
+const Expire = (web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo, title_str = "Expire") => (
   <div>
-  <h2>Expire this Option</h2>
+  <h2>{title_str} this Option</h2>
 
   <Formik
     id = "nested"
@@ -34,7 +34,7 @@ const Expire = (web3, option, option_address, accounts, state_mappings, optionIn
     }}
     render={(props: FormikProps<Values>) => (
       <form onSubmit={props.handleSubmit}>
-        <button type="submit">Expire</button>
+        <button type="submit">{title_str}</button>
       </form>
     )}
   />

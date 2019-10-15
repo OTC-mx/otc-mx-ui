@@ -5,9 +5,9 @@ import { ethers } from 'ethers'
 
 import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
-import SilentOptionFactory from '../../atomicoptions/build/contracts/SilentOptionFactory';
-import ERC20 from '../../atomicoptions/build/contracts/ERC20';
-import SilentOption from '../../atomicoptions/build/contracts/SilentOption';
+import SilentOptionFactory from '../../atomic-options/build/contracts/SilentOptionFactory';
+import ERC20 from '../../atomic-options/build/contracts/ERC20';
+import SilentOption from '../../atomic-options/build/contracts/SilentOption';
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 
 function CreateSilentCall() {

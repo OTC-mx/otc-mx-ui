@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 
-import ERC20 from '../../atomicoptions/build/contracts/ERC20';
+import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
 const PayFee = (web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo) => (
   <div>

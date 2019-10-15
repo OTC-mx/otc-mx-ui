@@ -4,9 +4,9 @@ import Web3 from 'web3';
 
 import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
-import OptionFactory from '../../atomicoptions/build/contracts/OptionFactory';
-import ERC20 from '../../atomicoptions/build/contracts/ERC20';
-import Option from '../../atomicoptions/build/contracts/Option';
+import OptionFactory from '../../atomic-options/build/contracts/OptionFactory';
+import ERC20 from '../../atomic-options/build/contracts/ERC20';
+import Option from '../../atomic-options/build/contracts/Option';
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 
 function CreateCall() {

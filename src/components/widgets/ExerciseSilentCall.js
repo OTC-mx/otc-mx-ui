@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 
 import CustomInputComponent from '../../utils/FormikUtils';
 
-import ERC20 from '../../atomicoptions/build/contracts/ERC20';
+import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
 const ExerciseSilentCall = (web3, silent_option, silent_option_address, accounts, state_mappings, silentOptionInfo, setSilentOptionInfo) => (
   <div>
@@ -25,7 +25,7 @@ const ExerciseSilentCall = (web3, silent_option, silent_option_address, accounts
               .div(web3.utils.toBN(values.strike_price_base))
             );
             let salt = ethers.utils.hexZeroPad(ethers.utils.hexlify(values.salt), 32);
-            
+
             let approve_call = await (
               base
               .methods
