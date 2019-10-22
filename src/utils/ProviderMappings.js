@@ -12,8 +12,13 @@ const silent_option_factory_mappings = ({
   'rinkeby': '0x9380Ed33904F2AEd5Cf3d0042CC27Dd2CE49a406',
 });
 
+const tokenized_option_factory_mappings = ({
+  'http://localhost:8545': '0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7',
+  'private': '0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7',
+});
+
 const local_token_mappings = ({
-  'a': '0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7',
+  'a': '0xA57B8a5584442B467b4689F1144D269d096A3daF',
   'b': '0xD3aA556287Afe63102e5797BFDDd2A1E8DbB3eA5',
 });
 
@@ -24,4 +29,5 @@ const rinkeby_token_mappings = ({
 
 module.exports.option_factory_mappings = option_factory_mappings;
 module.exports.silent_option_factory_mappings = silent_option_factory_mappings;
+module.exports.tokenized_option_factory_mappings = tokenized_option_factory_mappings;
 module.exports.local_token_mappings = local_token_mappings;

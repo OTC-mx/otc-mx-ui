@@ -12,6 +12,7 @@ const Header = () => (
             <div class="dropdown-content">
               <a href="/call">Call Options</a>
               <a href="/silentcall">Silent Call Options</a>
+              <a href="/tokenizedcall">Tokenized Call Options</a>
             </div>
           </div>
         </li>
