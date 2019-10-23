@@ -7,6 +7,7 @@ import CreateSilentCall from './pages/CreateSilentCall';
 import CreateTokenizedCall from './pages/CreateTokenizedCall';
 import OperateCall from './pages/OperateCall';
 import OperateSilentCall from './pages/OperateSilentCall';
+import OperateTokenizedCall from './pages/OperateTokenizedCall';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
 
@@ -21,6 +22,7 @@ const Main = () => (
       <Route exact path='/about' component={About}/>
       <Route path='/call/' component={OperateCall}/>
       <Route path='/silentcall/' component={OperateSilentCall}/>
+      <Route path='/tokenizedcall/' component={OperateTokenizedCall}/>
       <Route path='/' component={NotFound}/>
     </Switch>
   </div>

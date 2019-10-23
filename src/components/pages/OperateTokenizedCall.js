@@ -4,7 +4,8 @@ import Web3 from 'web3';
 
 import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
-import Option from '../../atomic-options/build/contracts/Option';
+import TokenizedOption from '../../atomic-options/build/contracts/TokenizedOption';
+import PoolToken from '../../atomic-options/build/contracts/PoolToken';
 
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 import OptionNotInitialized from '../widgets/OptionNotInitialized';
@@ -12,12 +13,13 @@ import PayFeeNoAction from '../widgets/PayFeeNoAction';
 import ExerciseExpire from '../widgets/ExerciseExpire';
 import ContractExpired from '../widgets/ContractExpired';
 
-function OperateCall() {
+function OperateTokenizedCall() {
   const [accounts, setAccounts] = useState([]);
   const [web3, setWeb3] = useState({});
   const [optionAddress, setOptionAddress] = useState({});
   const [option, setOption] = useState({});
   const [optionInfo, setOptionInfo] = useState([]);
+  const [tokenInfo, setTokenInfo] = useState([]);
 
   useEffect(() => {
     (function () {
@@ -27,12 +29,17 @@ function OperateCall() {
         let web3_temp = new Web3(window.ethereum);
         let option_address_temp = window.location.pathname.split("/").filter((e) => e !== "").pop();
 
-        let option_temp = new web3_temp.eth.Contract(Option.abi, option_address_temp);
+        let option_temp = new web3_temp.eth.Contract(TokenizedOption.abi, option_address_temp);
 
         let option_info_call = await (
           option_temp
           .methods
           .get_info()
+          .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
+        let token_info_call = await (
+          option_temp
+          .methods
+          .get_token_info()
           .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
 
         setAccounts(accounts_temp);
@@ -40,6 +47,7 @@ function OperateCall() {
         setOptionAddress(option_address_temp);
         setOption(option_temp);
         setOptionInfo(option_info_call);
+        setTokenInfo(token_info_call);
       })();
     })();
   }, []);
@@ -59,9 +67,11 @@ function OperateCall() {
           '2': PayFeeNoAction(web3, option, optionAddress, accounts,
              state_mappings, optionInfo, setOptionInfo),
           '3': ExerciseExpire(web3, option, optionAddress, accounts,
-             state_mappings, optionInfo, setOptionInfo),
+             state_mappings, optionInfo, setOptionInfo, true,
+             tokenInfo, setTokenInfo),
           '4': ExerciseExpire(web3, option, optionAddress, accounts,
-             state_mappings, optionInfo, setOptionInfo),
+             state_mappings, optionInfo, setOptionInfo, true,
+             tokenInfo, setTokenInfo),
           '5': ContractExpired()
         }[contract_state]
       );
@@ -113,6 +123,30 @@ function OperateCall() {
               <th>State</th>
               <th>{state_mappings[optionInfo[10]]}</th>
             </tr>
+            <tr>
+              <th>Option Claim Token Address</th>
+              <th>{tokenInfo[0]}</th>
+            </tr>
+            <tr>
+              <th>Collateral Claim Token Address</th>
+              <th>{tokenInfo[1]}</th>
+            </tr>
+            <tr>
+              <th>Option Claim Token Supply</th>
+              <th>{tokenInfo[2]}</th>
+            </tr>
+            <tr>
+              <th>Collateral Claim Token Supply</th>
+              <th>{tokenInfo[3]}</th>
+            </tr>
+            <tr>
+              <th>Your Option Claim Token Balance</th>
+              <th>{tokenInfo[4]}</th>
+            </tr>
+            <tr>
+              <th>Your Collateral Claim Token Balance</th>
+              <th>{tokenInfo[5]}</th>
+            </tr>
           </tbody>
         </table>
         <div>{operate_display(optionInfo[10])}</div>
@@ -121,4 +155,4 @@ function OperateCall() {
   }
 }
 
-export default OperateCall;
+export default OperateTokenizedCall;

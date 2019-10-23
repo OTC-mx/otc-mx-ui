@@ -54,9 +54,7 @@ function OperateCall() {
     function operate_display(contract_state) {
       return (
         {
-          // '0': OptionNotInitialized(),
-          '0': ExerciseExpire(web3, silentOption, silentOptionAddress, accounts,
-             state_mappings, silentOptionInfo, setSilentOptionInfo),
+          '0': OptionNotInitialized(),
           '1': OptionNotInitialized(),
           '2': PayFeeNoAction(web3, silentOption, silentOptionAddress, accounts,
              state_mappings, silentOptionInfo, setSilentOptionInfo),

@@ -3,7 +3,9 @@ import { Formik, Field } from 'formik';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
-const Expire = (web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo, title_str = "Expire") => (
+const Expire = (web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo, title_str,
+                is_tokenized,
+                tokenInfo, setTokenInfo) => (
   <div>
   <h2>{title_str} this Option</h2>
 
@@ -28,6 +30,14 @@ const Expire = (web3, option, option_address, accounts, state_mappings, optionIn
               .call({ from: accounts[0] }, (error, result) => console.log(result) ));
 
             setOptionInfo(option_info_call);
+            if (is_tokenized) {
+              let token_info_call = await (
+                option
+                .methods
+                .get_token_info()
+                .call({ from: accounts[0] }, (error, result) => console.log(result) ));
+              setTokenInfo(token_info_call);
+            }
           })();
         })();
       }, 1000);
