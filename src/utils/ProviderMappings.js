@@ -22,6 +22,16 @@ const forward_factory_mappings = ({
   'private': '0x59d3631c86BbE35EF041872d502F218A39FBa150',
 });
 
+const portfolio_factory_mappings = ({
+  'http://localhost:8545': '0x9b1f7F645351AF3631a656421eD2e40f2802E6c0',
+  'private': '0x9b1f7F645351AF3631a656421eD2e40f2802E6c0',
+});
+
+const managed_forward_factory_mappings = ({
+  'http://localhost:8545': '0x67B5656d60a809915323Bf2C40A8bEF15A152e3e',
+  'private': '0x67B5656d60a809915323Bf2C40A8bEF15A152e3e',
+});
+
 const local_token_mappings = ({
   'a': '0xA57B8a5584442B467b4689F1144D269d096A3daF',
   'b': '0xD3aA556287Afe63102e5797BFDDd2A1E8DbB3eA5',
@@ -36,4 +46,6 @@ module.exports.option_factory_mappings = option_factory_mappings;
 module.exports.silent_option_factory_mappings = silent_option_factory_mappings;
 module.exports.tokenized_option_factory_mappings = tokenized_option_factory_mappings;
 module.exports.forward_factory_mappings = forward_factory_mappings;
+module.exports.portfolio_factory_mappings = portfolio_factory_mappings;
+module.exports.managed_forward_factory_mappings = managed_forward_factory_mappings;
 module.exports.local_token_mappings = local_token_mappings;
