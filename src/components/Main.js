@@ -5,6 +5,7 @@ import Whitepaper from './pages/Whitepaper';
 import CreateCall from './pages/CreateCall';
 import CreateSilentCall from './pages/CreateSilentCall';
 import CreateTokenizedCall from './pages/CreateTokenizedCall';
+import CreateForward from './pages/CreateForward';
 import OperateCall from './pages/OperateCall';
 import OperateSilentCall from './pages/OperateSilentCall';
 import OperateTokenizedCall from './pages/OperateTokenizedCall';
@@ -19,6 +20,7 @@ const Main = () => (
       <Route exact path='/call' component={CreateCall}/>
       <Route exact path='/silentcall' component={CreateSilentCall}/>
       <Route exact path='/tokenizedcall' component={CreateTokenizedCall}/>
+      <Route exact path='/forward' component={CreateForward}/>
       <Route exact path='/about' component={About}/>
       <Route path='/call/' component={OperateCall}/>
       <Route path='/silentcall/' component={OperateSilentCall}/>
