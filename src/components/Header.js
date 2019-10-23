@@ -16,6 +16,16 @@ const Header = () => (
             </div>
           </div>
         </li>
+        <li>
+          <div class="dropdown">
+            <button class="dropbtn">Forwards</button>
+            <div class="dropdown-content">
+              <a href="/forward">Forwards</a>
+              <a href="/managedforward">Managed Forwards</a>
+              <a href="/portfolio">Portfolios</a>
+            </div>
+          </div>
+        </li>
         <li><a href="/about">About</a></li>
       </ul>
     </nav>
