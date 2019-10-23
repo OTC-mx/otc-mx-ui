@@ -41,6 +41,11 @@ function OperateTokenizedCall() {
           .methods
           .get_token_info()
           .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
+        let asset_exercisable = (web3_temp.utils.toBN(token_info_call[4])
+          .mul(web3_temp.utils.toBN(option_info_call[6]))
+          .div(web3_temp.utils.toBN(option_info_call[5]))
+        );
+        token_info_call[6] = asset_exercisable.toString();
 
         setAccounts(accounts_temp);
         setWeb3(web3_temp);
@@ -54,7 +59,7 @@ function OperateTokenizedCall() {
   if (typeof window.ethereum == 'undefined'){
     return(
       <div>
-        <h1>Operate Call Option</h1>
+        <h1>Operate Tokenized Call Option</h1>
         <div>{MetaMaskNotFound()}</div>
       </div>
     );
@@ -146,6 +151,10 @@ function OperateTokenizedCall() {
             <tr>
               <th>Your Collateral Claim Token Balance</th>
               <th>{tokenInfo[5]}</th>
+            </tr>
+            <tr>
+              <th>Amount of Asset you can Buy if Active</th>
+              <th>{tokenInfo[6]}</th>
             </tr>
           </tbody>
         </table>
