@@ -4,20 +4,20 @@ import Web3 from 'web3';
 
 import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
-import Option from '../../atomic-options/build/contracts/Option';
+import Forward from '../../atomic-options/build/contracts/Forward';
 
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 import ContractNotInitialized from '../widgets/ContractNotInitialized';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
-import ExerciseExpire from '../widgets/ExerciseExpire';
+import SettleNoAction from '../widgets/SettleNoAction';
 import ContractExpired from '../widgets/ContractExpired';
 
 function OperateCall() {
   const [accounts, setAccounts] = useState([]);
   const [web3, setWeb3] = useState({});
-  const [optionAddress, setOptionAddress] = useState({});
-  const [option, setOption] = useState({});
-  const [optionInfo, setOptionInfo] = useState([]);
+  const [forwardAddress, setForwardAddress] = useState({});
+  const [forward, setForward] = useState({});
+  const [forwardInfo, setForwardInfo] = useState([]);
 
   useEffect(() => {
     (function () {
@@ -25,28 +25,28 @@ function OperateCall() {
         if (typeof window.ethereum == 'undefined'){ return; }
         let accounts_temp = await window.ethereum.enable();
         let web3_temp = new Web3(window.ethereum);
-        let option_address_temp = window.location.pathname.split("/").filter((e) => e !== "").pop();
+        let forward_address_temp = window.location.pathname.split("/").filter((e) => e !== "").pop();
 
-        let option_temp = new web3_temp.eth.Contract(Option.abi, option_address_temp);
+        let forward_temp = new web3_temp.eth.Contract(Forward.abi, forward_address_temp);
 
-        let option_info_call = await (
-          option_temp
+        let forward_info_call = await (
+          forward_temp
           .methods
           .get_info()
           .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
 
         setAccounts(accounts_temp);
         setWeb3(web3_temp);
-        setOptionAddress(option_address_temp);
-        setOption(option_temp);
-        setOptionInfo(option_info_call);
+        setForwardAddress(forward_address_temp);
+        setForward(forward_temp);
+        setForwardInfo(forward_info_call);
       })();
     })();
   }, []);
   if (typeof window.ethereum == 'undefined'){
     return(
       <div>
-        <h1>Operate Call Option</h1>
+        <h1>Operate Forward</h1>
         <div>{MetaMaskNotFound()}</div>
       </div>
     );
@@ -56,12 +56,12 @@ function OperateCall() {
         {
           '0': ContractNotInitialized(),
           '1': ContractNotInitialized(),
-          '2': PayFeeActivateAbort(web3, option, optionAddress, accounts,
-             state_mappings, optionInfo, setOptionInfo),
-          '3': ExerciseExpire(web3, option, optionAddress, accounts,
-             state_mappings, optionInfo, setOptionInfo),
-          '4': ExerciseExpire(web3, option, optionAddress, accounts,
-             state_mappings, optionInfo, setOptionInfo),
+          '2': PayFeeActivateAbort(web3, forward, forwardAddress, accounts,
+             state_mappings, forwardInfo, setForwardInfo),
+          '3': SettleNoAction(web3, forward, forwardAddress, accounts,
+             state_mappings, forwardInfo, setForwardInfo),
+          '4': SettleNoAction(web3, forward, forwardAddress, accounts,
+             state_mappings, forwardInfo, setForwardInfo),
           '5': ContractExpired()
         }[contract_state]
       );
@@ -69,53 +69,49 @@ function OperateCall() {
 
     return (
       <div>
-        <h1>Operate Call Option</h1>
-        <h2>About this Option</h2>
+        <h1>Operate Forward</h1>
+        <h2>About this Forward</h2>
         <table>
           <tbody>
             <tr>
               <th>Issuer Address</th>
-              <th>{optionInfo[0]}</th>
+              <th>{forwardInfo[0]}</th>
             </tr>
             <tr>
               <th>Buyer Address</th>
-              <th>{optionInfo[1]}</th>
+              <th>{forwardInfo[1]}</th>
             </tr>
             <tr>
               <th>Base Token Address</th>
-              <th>{optionInfo[2]}</th>
+              <th>{forwardInfo[2]}</th>
             </tr>
             <tr>
               <th>Asset Address</th>
-              <th>{optionInfo[3]}</th>
-            </tr>
-            <tr>
-              <th>Fee (smallest unit Base Token)</th>
-              <th>{optionInfo[4]}</th>
+              <th>{forwardInfo[3]}</th>
             </tr>
             <tr>
               <th>Base Strike Price / Quote Strike Price</th>
-              <th>{optionInfo[5]} / {optionInfo[6]}</th>
+              <th>{forwardInfo[4]} / {forwardInfo[5]}</th>
             </tr>
             <tr>
               <th>Volume (smallest unit Asset)</th>
-              <th>{optionInfo[7]}</th>
+              <th>{forwardInfo[6]}</th>
+            </tr>
+            <tr>
+              <th>Base Volume (smallest unit Base)</th>
+              <th>{forwardInfo[7]}</th>
             </tr>
             <tr>
               <th>Maturity Time (Unix)</th>
-              <th>{optionInfo[8]}</th>
-            </tr>
-            <tr>
-              <th>Expiry Time (Unix)</th>
-              <th>{optionInfo[9]}</th>
+              <th>{forwardInfo[8]}</th>
             </tr>
             <tr>
               <th>State</th>
-              <th>{state_mappings[optionInfo[10]]}</th>
+              <th>{state_mappings[forwardInfo[9]]}</th>
             </tr>
           </tbody>
         </table>
-        <div>{operate_display(optionInfo[10])}</div>
+        <div>{operate_display(forwardInfo[9])}</div>
       </div>
     );
   }

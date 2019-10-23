@@ -7,8 +7,8 @@ import { state_mappings } from '../../utils/StateMappings';
 import SilentOption from '../../atomic-options/build/contracts/SilentOption';
 
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
-import OptionNotInitialized from '../widgets/OptionNotInitialized';
-import PayFeeNoAction from '../widgets/PayFeeNoAction';
+import ContractNotInitialized from '../widgets/ContractNotInitialized';
+import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import ExerciseExpire from '../widgets/ExerciseExpire';
 import ContractExpired from '../widgets/ContractExpired';
 
@@ -54,9 +54,9 @@ function OperateCall() {
     function operate_display(contract_state) {
       return (
         {
-          '0': OptionNotInitialized(),
-          '1': OptionNotInitialized(),
-          '2': PayFeeNoAction(web3, silentOption, silentOptionAddress, accounts,
+          '0': ContractNotInitialized(),
+          '1': ContractNotInitialized(),
+          '2': PayFeeActivateAbort(web3, silentOption, silentOptionAddress, accounts,
              state_mappings, silentOptionInfo, setSilentOptionInfo),
           '3': ExerciseExpire(web3, silentOption, silentOptionAddress, accounts,
              state_mappings, silentOptionInfo, setSilentOptionInfo),

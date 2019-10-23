@@ -8,8 +8,8 @@ import TokenizedOption from '../../atomic-options/build/contracts/TokenizedOptio
 import PoolToken from '../../atomic-options/build/contracts/PoolToken';
 
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
-import OptionNotInitialized from '../widgets/OptionNotInitialized';
-import PayFeeNoAction from '../widgets/PayFeeNoAction';
+import ContractNotInitialized from '../widgets/ContractNotInitialized';
+import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import ExerciseExpire from '../widgets/ExerciseExpire';
 import ContractExpired from '../widgets/ContractExpired';
 
@@ -62,9 +62,9 @@ function OperateTokenizedCall() {
     function operate_display(contract_state) {
       return (
         {
-          '0': OptionNotInitialized(),
-          '1': OptionNotInitialized(),
-          '2': PayFeeNoAction(web3, option, optionAddress, accounts,
+          '0': ContractNotInitialized(),
+          '1': ContractNotInitialized(),
+          '2': PayFeeActivateAbort(web3, option, optionAddress, accounts,
              state_mappings, optionInfo, setOptionInfo),
           '3': ExerciseExpire(web3, option, optionAddress, accounts,
              state_mappings, optionInfo, setOptionInfo, true,

@@ -9,6 +9,7 @@ import CreateForward from './pages/CreateForward';
 import OperateCall from './pages/OperateCall';
 import OperateSilentCall from './pages/OperateSilentCall';
 import OperateTokenizedCall from './pages/OperateTokenizedCall';
+import OperateForward from './pages/OperateForward';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
 
@@ -25,6 +26,7 @@ const Main = () => (
       <Route path='/call/' component={OperateCall}/>
       <Route path='/silentcall/' component={OperateSilentCall}/>
       <Route path='/tokenizedcall/' component={OperateTokenizedCall}/>
+      <Route path='/forward/' component={OperateForward}/>
       <Route path='/' component={NotFound}/>
     </Switch>
   </div>

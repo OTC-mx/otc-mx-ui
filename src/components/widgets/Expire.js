@@ -7,7 +7,7 @@ const Expire = (web3, option, option_address, accounts, state_mappings, optionIn
                 is_tokenized,
                 tokenInfo, setTokenInfo) => (
   <div>
-  <h2>{title_str} this Option</h2>
+  <h2>{title_str} this Contract</h2>
 
   <Formik
     id = "nested"
