@@ -28,8 +28,8 @@ form {
   text-align: left;
   padding-left: 25px;
   background-color: white;
-  display: flex;
-  flex-direction: column;
+  display: block;
+  /*flex-direction: column;*/
   justify-content: center;
   color: black;
 }
