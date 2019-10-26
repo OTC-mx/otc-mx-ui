@@ -4,7 +4,7 @@ import Web3 from 'web3';
 
 import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
-import Forward from '../../atomic-options/build/contracts/Forward';
+import ManagedForward from '../../atomic-options/build/contracts/ManagedForward';
 
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 import ContractNotInitialized from '../widgets/ContractNotInitialized';
@@ -12,12 +12,13 @@ import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import SettleNoAction from '../widgets/SettleNoAction';
 import ContractExpired from '../widgets/ContractExpired';
 
-function OperateForward() {
+function OperateManagedForward() {
   const [accounts, setAccounts] = useState([]);
   const [web3, setWeb3] = useState({});
   const [forwardAddress, setForwardAddress] = useState({});
   const [forward, setForward] = useState({});
   const [forwardInfo, setForwardInfo] = useState([]);
+  const [portfolioInfo, setPortfolioInfo] = useState([]);
 
   useEffect(() => {
     (function () {
@@ -27,12 +28,17 @@ function OperateForward() {
         let web3_temp = new Web3(window.ethereum);
         let forward_address_temp = window.location.pathname.split("/").filter((e) => e !== "").pop();
 
-        let forward_temp = new web3_temp.eth.Contract(Forward.abi, forward_address_temp);
+        let forward_temp = new web3_temp.eth.Contract(ManagedForward.abi, forward_address_temp);
 
         let forward_info_call = await (
           forward_temp
           .methods
           .get_info()
+          .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
+        let portfolio_info_call = await (
+          forward_temp
+          .methods
+          .get_portfolio_info()
           .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
 
         setAccounts(accounts_temp);
@@ -40,13 +46,14 @@ function OperateForward() {
         setForwardAddress(forward_address_temp);
         setForward(forward_temp);
         setForwardInfo(forward_info_call);
+        setPortfolioInfo(portfolio_info_call);
       })();
     })();
   }, []);
   if (typeof window.ethereum == 'undefined'){
     return(
       <div>
-        <h1>Operate Forward</h1>
+        <h1>Operate Managed Forward</h1>
         <div>{MetaMaskNotFound()}</div>
       </div>
     );
@@ -57,7 +64,8 @@ function OperateForward() {
           '0': ContractNotInitialized(),
           '1': ContractNotInitialized(),
           '2': PayFeeActivateAbort(web3, forward, forwardAddress, accounts,
-             state_mappings, forwardInfo, setForwardInfo, true),
+             state_mappings, forwardInfo, setForwardInfo, false, true,
+             portfolioInfo, setPortfolioInfo),
           '3': SettleNoAction(web3, forward, forwardAddress, accounts,
              state_mappings, forwardInfo, setForwardInfo),
           '4': SettleNoAction(web3, forward, forwardAddress, accounts,
@@ -69,7 +77,7 @@ function OperateForward() {
 
     return (
       <div>
-        <h1>Operate Forward</h1>
+        <h1>Operate Managed Forward</h1>
         <h2>About this Forward</h2>
         <table>
           <tbody>
@@ -111,10 +119,38 @@ function OperateForward() {
             </tr>
           </tbody>
         </table>
+        <table>
+          <tbody>
+            <tr>
+              <th>Issuer Portfolio Address</th>
+              <th>{portfolioInfo[0]}</th>
+            </tr>
+            <tr>
+              <th>Buyer Portfolio Address</th>
+              <th>{portfolioInfo[1]}</th>
+            </tr>
+            <tr>
+              <th>Unmatched Base Volume</th>
+              <th>{portfolioInfo[2]}</th>
+            </tr>
+            <tr>
+              <th>Unmatched Asset Volume</th>
+              <th>{portfolioInfo[3]}</th>
+            </tr>
+            <tr>
+              <th>Base Matched Address</th>
+              <th>{portfolioInfo[4]}</th>
+            </tr>
+            <tr>
+              <th>Asset Matched Address</th>
+              <th>{portfolioInfo[5]}</th>
+            </tr>
+          </tbody>
+        </table>
         <div>{operate_display(forwardInfo[9])}</div>
       </div>
     );
   }
 }
 
-export default OperateForward;
+export default OperateManagedForward;

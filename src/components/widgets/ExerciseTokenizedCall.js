@@ -51,9 +51,10 @@ const ExerciseTokenizedCall = (web3, option, option_address, accounts, state_map
               .mul(web3.utils.toBN(optionInfo[5]))
               .div(web3.utils.toBN(optionInfo[6]))
             );
+            token_info_call[6] = asset_exercisable.toString();
 
             setOptionInfo(option_info_call);
-            setTokenInfo(token_info_call + [asset_exercisable]);
+            setTokenInfo(token_info_call);
           })();
         })();
       }, 1000);

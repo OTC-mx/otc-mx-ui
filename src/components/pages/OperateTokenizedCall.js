@@ -128,6 +128,10 @@ function OperateTokenizedCall() {
               <th>State</th>
               <th>{state_mappings[optionInfo[10]]}</th>
             </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
             <tr>
               <th>Option Claim Token Address</th>
               <th>{tokenInfo[0]}</th>

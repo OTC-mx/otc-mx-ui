@@ -63,8 +63,17 @@ function CreateManagedForward() {
                     values.issuer_portfolio, values.buyer_portfolio)
                   .send({ from: accounts[0] })
                 );
-                let forward_address_temp = create_forward_call.events.NewForward.returnValues[0];
+                let forward_address_temp = create_forward_call.events.NewManagedForward.returnValues[0];
                 let forward = new web3.eth.Contract(ManagedForward.abi, forward_address_temp);
+
+                let portfolio = new web3.eth.Contract(Portfolio.abi, values.issuer_portfolio);
+                let add_managed_forward_call = await (
+                  portfolio
+                  .methods
+                  .add_managed_forward(forward_address_temp)
+                  .send({ from: accounts[0] })
+                );
+
                 let collateralize_call;
                 if (values.collateralize_from == 'address') {
                   let asset = new web3.eth.Contract(ERC20.abi, values.asset_addr);
@@ -95,18 +104,11 @@ function CreateManagedForward() {
                     .send({ from: accounts[0] })
                   );
                 }
-                let portfolio = new web3.eth.Contract(Portfolio.abi, values.issuer_portfolio);
-                let add_managed_forward_call = await (
-                  portfolio
-                  .methods
-                  .add_managed_forward(forward_address_temp)
-                  .send({ from: accounts[0] })
-                );
 
                 setForwardAddress(forward_address_temp);
                 setPreface('Shareable URL: ');
                 setUrlPreface('https://otc.mx');
-                setResult(`/forward/${forward_address_temp}`);
+                setResult(`/managedforward/${forward_address_temp}`);
               })();
             })();
           }, 1000);
