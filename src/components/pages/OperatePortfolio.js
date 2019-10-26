@@ -7,6 +7,7 @@ import { state_mappings } from '../../utils/StateMappings';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
 
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import DepositWithdrawWrapper from '../widgets/DepositWithdrawWrapper';
 
 function OperatePortfolio() {
   const [accounts, setAccounts] = useState([]);
@@ -47,7 +48,6 @@ function OperatePortfolio() {
       </div>
     );
   } else {
-
     return (
       <div>
         <h1>Operate Portfolio</h1>
@@ -66,8 +66,19 @@ function OperatePortfolio() {
               <th>Owner</th>
               <th>{portfolioInfo[2]}</th>
             </tr>
+            <tr>
+              <th>Base Volume Available</th>
+              <th>{portfolioInfo[4]}</th>
+            </tr>
+            <tr>
+              <th>Asset Volume Available</th>
+              <th>{portfolioInfo[5]}</th>
+            </tr>
           </tbody>
         </table>
+        <div>
+          {DepositWithdrawWrapper(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo)}
+        </div>
       </div>
     );
   }
