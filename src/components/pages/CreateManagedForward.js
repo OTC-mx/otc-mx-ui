@@ -16,6 +16,7 @@ function CreateManagedForward() {
   const [urlPreface, setUrlPreface] = useState('');
   const [result, setResult] = useState('');
   const [accounts, setAccounts] = useState([]);
+  const [addressPreface, setAddressPreface] = useState('');
   const [forwardAddress, setForwardAddress] = useState('');
   let metamask_message;
   if (typeof window.ethereum == 'undefined'){
@@ -105,6 +106,7 @@ function CreateManagedForward() {
                   );
                 }
 
+                setAddressPreface('Managed Forward Address: ');
                 setForwardAddress(forward_address_temp);
                 setPreface('Shareable URL: ');
                 setUrlPreface('https://otc.mx');
@@ -136,6 +138,7 @@ function CreateManagedForward() {
           </form>
         )}
       />
+      <p>{addressPreface}{forwardAddress}</p>
       <p>{preface} <a href={result} target="_blank" rel="noopener noreferrer">{urlPreface}{result}</a></p>
     </div>
   );

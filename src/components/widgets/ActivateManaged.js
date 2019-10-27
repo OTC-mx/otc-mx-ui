@@ -79,8 +79,8 @@ const ActivateManaged = (web3, forward, forward_address, accounts, state_mapping
       <form onSubmit={props.handleSubmit}>
         <small>Activate From: </small>
         <Field name="activate_from" component="select" >
-          <option value="address">Issuer Address</option>
-          <option value="portfolio">Issuer Portfolio</option>
+          <option value="address">Buyer Address</option>
+          <option value="portfolio">Buyer Portfolio</option>
           <option value="match">Another Contract</option>
         </Field>
         <Field name="matched_addr" placeholder="Matched Address" component={CustomInputComponent}/>
