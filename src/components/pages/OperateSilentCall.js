@@ -74,6 +74,10 @@ function OperateCall() {
         <table>
           <tbody>
             <tr>
+              <th>Contract Address</th>
+              <th>{silentOptionAddress.toString()}</th>
+            </tr>
+            <tr>
               <th>Issuer Address</th>
               <th>{silentOptionInfo[0]}</th>
             </tr>

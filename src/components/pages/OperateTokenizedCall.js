@@ -89,6 +89,10 @@ function OperateTokenizedCall() {
         <table>
           <tbody>
             <tr>
+              <th>Contract Address</th>
+              <th>{optionAddress.toString()}</th>
+            </tr>
+            <tr>
               <th>Issuer Address</th>
               <th>{optionInfo[0]}</th>
             </tr>

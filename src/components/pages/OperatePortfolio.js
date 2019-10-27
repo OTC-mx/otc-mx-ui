@@ -55,6 +55,10 @@ function OperatePortfolio() {
         <table>
           <tbody>
             <tr>
+              <th>Contract Address</th>
+              <th>{portfolioAddress.toString()}</th>
+            </tr>
+            <tr>
               <th>Base Token Address</th>
               <th>{portfolioInfo[0]}</th>
             </tr>

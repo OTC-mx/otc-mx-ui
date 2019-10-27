@@ -74,6 +74,10 @@ function OperateForward() {
         <table>
           <tbody>
             <tr>
+              <th>Contract Address</th>
+              <th>{forwardAddress.toString()}</th>
+            </tr>
+            <tr>
               <th>Issuer Address</th>
               <th>{forwardInfo[0]}</th>
             </tr>
