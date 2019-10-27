@@ -25,7 +25,7 @@ function ExerciseExpire(web3, option, option_address, accounts, state_mappings, 
                         (tokenized_exercisable || non_tokenized_exercisable));
 
     let tokenized_expirable = ((is_tokenized) &&
-                                (current_time > optionInfo[9]) &&
+                                ((current_time > optionInfo[9]) || (tokenInfo[2] == 0)) &&
                                 (tokenInfo[5] > 0));
     let non_tokenized_expirable = ((! is_tokenized) &&
                                     (current_time > optionInfo[9] || (optionInfo[7] == 0)) &&

@@ -15,7 +15,7 @@ const silent_option_factory_mappings = ({
 const tokenized_option_factory_mappings = ({
   'http://localhost:8545': '0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7',
   'private': '0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7',
-  'rinkeby': '0x82e25dDd36187224c40b0DBA7F487080537bFe4E',
+  'rinkeby': '0x7EF97F5a887998CCeE8C78e858792Cb7E46B2Ecc',
 });
 
 const forward_factory_mappings = ({
