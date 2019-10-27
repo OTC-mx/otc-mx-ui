@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Field } from 'formik';
 import Web3 from 'web3';
+import { ethers } from 'ethers';
 
 import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
@@ -19,6 +20,7 @@ function OperateManagedForward() {
   const [forward, setForward] = useState({});
   const [forwardInfo, setForwardInfo] = useState([]);
   const [portfolioInfo, setPortfolioInfo] = useState([]);
+  const [isForceSettle, setIsForceSettle] = useState('');
 
   useEffect(() => {
     (function () {
@@ -41,12 +43,40 @@ function OperateManagedForward() {
           .get_portfolio_info()
           .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
 
+        let zero_address = ethers.utils.hexZeroPad('0x0', 20);
+        let base_matched_state_call;
+        if (portfolio_info_call[4] == zero_address) {
+          base_matched_state_call = state_mappings.expired;
+        } else {
+          let base_matched = new web3_temp.eth.Contract(ManagedForward.abi, portfolio_info_call[4]);
+          base_matched_state_call = await (
+            base_matched
+            .methods
+            .state()
+            .call({ from: accounts[0] }, (error, result) => console.log(result) ));
+        }
+        let asset_matched_state_call;
+        if (portfolio_info_call[5] == zero_address) {
+          asset_matched_state_call = state_mappings.expired;
+        } else {
+          let asset_matched = new web3_temp.eth.Contract(ManagedForward.abi, portfolio_info_call[5]);
+          asset_matched_state_call = await (
+            asset_matched
+            .methods
+            .state()
+            .call({ from: accounts[0] }, (error, result) => console.log(result) ));
+        }
+
+        let is_force_settle_temp = (! ((base_matched_state_call == state_mappings.expired) &&
+                                    (asset_matched_state_call == state_mappings.expired)));
+
         setAccounts(accounts_temp);
         setWeb3(web3_temp);
         setForwardAddress(forward_address_temp);
         setForward(forward_temp);
         setForwardInfo(forward_info_call);
         setPortfolioInfo(portfolio_info_call);
+        setIsForceSettle(is_force_settle_temp);
       })();
     })();
   }, []);
@@ -67,9 +97,11 @@ function OperateManagedForward() {
              state_mappings, forwardInfo, setForwardInfo, false, true,
              portfolioInfo, setPortfolioInfo),
           '3': SettleNoAction(web3, forward, forwardAddress, accounts,
-             state_mappings, forwardInfo, setForwardInfo),
+             state_mappings, forwardInfo, setForwardInfo,
+             true, portfolioInfo, setPortfolioInfo, isForceSettle),
           '4': SettleNoAction(web3, forward, forwardAddress, accounts,
-             state_mappings, forwardInfo, setForwardInfo),
+             state_mappings, forwardInfo, setForwardInfo,
+             true, portfolioInfo, setPortfolioInfo, isForceSettle),
           '5': ContractExpired()
         }[contract_state]
       );

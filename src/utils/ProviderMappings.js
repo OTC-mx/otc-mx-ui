@@ -33,7 +33,7 @@ const portfolio_factory_mappings = ({
 const managed_forward_factory_mappings = ({
   'http://localhost:8545': '0x67B5656d60a809915323Bf2C40A8bEF15A152e3e',
   'private': '0x67B5656d60a809915323Bf2C40A8bEF15A152e3e',
-  'rinkeby': '0x712cB4F4Aac86Eed80D0EF1E9F69CA9F52F8117b',
+  'rinkeby': '0x35f53b217507ceCCe16D01071919Da497D32670f',
 });
 
 const local_token_mappings = ({

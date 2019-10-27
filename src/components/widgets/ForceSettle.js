@@ -3,10 +3,10 @@ import { Formik, Field } from 'formik';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
-const Settle = (web3, forward, forward_address, accounts, state_mappings, forwardInfo, setForwardInfo,
-                is_managed, portfolioInfo, setPortfolioInfo) => (
+const ForceSettle = (web3, forward, forward_address, accounts, state_mappings,
+                      forwardInfo, setForwardInfo, portfolioInfo, setPortfolioInfo) => (
   <div>
-  <h2>Settle this Forward</h2>
+  <h2>Recursively Settle this Forward</h2>
 
   <Formik
     id = "nested"
@@ -16,10 +16,10 @@ const Settle = (web3, forward, forward_address, accounts, state_mappings, forwar
         actions.setSubmitting(false);
         (function () {
           (async function () {
-            let settle_call = await (
+            let force_settle_call = await (
               forward
               .methods
-              .settle()
+              .force_settle()
               .send({ from: accounts[0] })
             );
             let forward_info_call = await (
@@ -27,15 +27,14 @@ const Settle = (web3, forward, forward_address, accounts, state_mappings, forwar
               .methods
               .get_info()
               .call({ from: accounts[0] }, (error, result) => console.log(result) ));
-            if (is_managed) {
-              let portfolio_info_call = await (
-                forward
-                .methods
-                .get_portfolio_info()
-                .call({ from: accounts[0] }, (error, result) => console.log(result) ));
-                setPortfolioInfo(portfolio_info_call);
-            }
+            let portfolio_info_call = await (
+              forward
+              .methods
+              .get_portfolio_info()
+              .call({ from: accounts[0] }, (error, result) => console.log(result) ));
+
             setForwardInfo(forward_info_call);
+            setPortfolioInfo(portfolio_info_call);
           })();
         })();
       }, 1000);
@@ -49,4 +48,4 @@ const Settle = (web3, forward, forward_address, accounts, state_mappings, forwar
   </div>
 );
 
-export default Settle;
+export default ForceSettle;
