@@ -80,4 +80,4 @@ function force_settle(web3, forward, forward_address, accounts,
                             portfolioInfo, setPortfolioInfo));
 }
 
-export {pay_fee, expire, activate, settle, force_settle};
+export { pay_fee, expire, activate, settle, force_settle };

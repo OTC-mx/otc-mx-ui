@@ -8,7 +8,7 @@ import TokenizedOptionFactory from '../../atomic-options/build/contracts/Tokeniz
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import PoolToken from '../../atomic-options/build/contracts/PoolToken';
 import TokenizedOption from '../../atomic-options/build/contracts/Option';
-import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import { web3_not_found } from '../widgets/NoOp';
 
 function CreateTokenizedCall() {
   const [preface, setPreface] = useState('');
@@ -18,7 +18,7 @@ function CreateTokenizedCall() {
   const [optionAddress, setOptionAddress] = useState('');
   let metamask_message;
   if (typeof window.ethereum == 'undefined'){
-    metamask_message = MetaMaskNotFound();
+    metamask_message = web3_not_found();
   } else {
     metamask_message = (function () {
       (async function () {

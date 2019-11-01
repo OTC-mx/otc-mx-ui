@@ -6,7 +6,7 @@ import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
 import PortfolioFactory from '../../atomic-options/build/contracts/PortfolioFactory';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
-import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import { web3_not_found } from '../widgets/NoOp';
 
 function CreatePortfolio() {
   const [addressPreface, setAddressPreface] = useState('');
@@ -17,7 +17,7 @@ function CreatePortfolio() {
   const [portfolioAddress, setPortfolioAddress] = useState('');
   let metamask_message;
   if (typeof window.ethereum == 'undefined'){
-    metamask_message = MetaMaskNotFound();
+    metamask_message = web3_not_found();
   } else {
     metamask_message = (function () {
       (async function () {

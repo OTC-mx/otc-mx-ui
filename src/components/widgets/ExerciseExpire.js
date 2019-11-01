@@ -2,8 +2,7 @@ import React from 'react';
 
 import ChooseExercise from './ChooseExercise';
 import { expire } from './SingleButtonWrappers';
-import NoAction from './NoAction';
-import Nonparticipant from './Nonparticipant';
+import { no_action, not_a_party } from './NoOp';
 
 function ExerciseExpire(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo,
                         is_tokenized = false,
@@ -44,9 +43,9 @@ function ExerciseExpire(web3, option, option_address, accounts, state_mappings, 
                     tokenInfo, setTokenInfo));
     } else if ((address_lower === issuer_lower) || (address_lower == buyer_lower) ||
                 (is_tokenized && (tokenInfo[0] + tokenInfo[5] > 0) )) {
-      return(NoAction());
+      return(no_action());
     } else {
-      return(Nonparticipant());
+      return(not_a_party());
     }
   };
 

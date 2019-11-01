@@ -5,7 +5,7 @@ import Web3 from 'web3';
 import CustomInputComponent from '../../utils/FormikUtils';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
 
-import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import { web3_not_found } from '../widgets/NoOp';
 import DepositWithdrawWrapper from '../widgets/DepositWithdrawWrapper';
 
 function OperatePortfolio() {
@@ -43,7 +43,7 @@ function OperatePortfolio() {
     return(
       <div>
         <h1>Operate Managed Forward</h1>
-        <div>{MetaMaskNotFound()}</div>
+        <div>{web3_not_found()}</div>
       </div>
     );
   } else {

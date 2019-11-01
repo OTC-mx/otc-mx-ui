@@ -1,7 +1,6 @@
 import React from 'react';
 
-import NoAction from "./NoAction";
-import Nonparticipant from './Nonparticipant';
+import { no_action, not_a_party } from './NoOp';
 import { settle, force_settle } from './SingleButtonWrappers';
 
 function SettleNoAction(web3, forward, forwardAddress, accounts,
@@ -30,9 +29,9 @@ function SettleNoAction(web3, forward, forwardAddress, accounts,
                     forwardInfo, setForwardInfo,
                     is_managed, portfolioInfo, setPortfolioInfo));
     } else if (is_participant) {
-      return(NoAction());
+      return(no_action());
     } else {
-      return(Nonparticipant());
+      return(not_a_party());
     }
   };
 

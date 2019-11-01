@@ -7,11 +7,10 @@ import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
 import ManagedForward from '../../atomic-options/build/contracts/ManagedForward';
 
-import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import { web3_not_found, contract_expired } from '../widgets/NoOp';
 import ContractNotInitialized from '../widgets/ContractNotInitialized';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import SettleNoAction from '../widgets/SettleNoAction';
-import ContractExpired from '../widgets/ContractExpired';
 
 function OperateManagedForward() {
   const [accounts, setAccounts] = useState([]);
@@ -84,7 +83,7 @@ function OperateManagedForward() {
     return(
       <div>
         <h1>Operate Managed Forward</h1>
-        <div>{MetaMaskNotFound()}</div>
+        <div>{web3_not_found()}</div>
       </div>
     );
   } else {
@@ -102,7 +101,7 @@ function OperateManagedForward() {
           '4': SettleNoAction(web3, forward, forwardAddress, accounts,
              forwardInfo, setForwardInfo,
              true, portfolioInfo, setPortfolioInfo, isForceSettle),
-          '5': ContractExpired()
+          '5': contract_expired()
         }[contract_state]
       );
     }

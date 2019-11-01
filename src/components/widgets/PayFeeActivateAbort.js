@@ -2,7 +2,7 @@ import React from 'react';
 
 import ActivateManaged from './ActivateManaged';
 import { pay_fee, expire, activate } from './SingleButtonWrappers';
-import Nonparticipant from './Nonparticipant';
+import { not_a_party } from './NoOp';
 
 function PayFeeActivateAbort(web3, derivative, derivative_address, accounts,
     derivativeInfo, setDerivativeInfo,
@@ -30,7 +30,7 @@ function PayFeeActivateAbort(web3, derivative, derivative_address, accounts,
                     accounts, derivativeInfo, setDerivativeInfo,
                     "Abort"));
     } else {
-      return(Nonparticipant());
+      return(not_a_party());
     }
   };
 

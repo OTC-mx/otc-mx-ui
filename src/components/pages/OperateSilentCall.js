@@ -6,11 +6,10 @@ import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
 import SilentOption from '../../atomic-options/build/contracts/SilentOption';
 
-import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import { web3_not_found, contract_expired } from '../widgets/NoOp';
 import ContractNotInitialized from '../widgets/ContractNotInitialized';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import ExerciseExpire from '../widgets/ExerciseExpire';
-import ContractExpired from '../widgets/ContractExpired';
 
 function OperateCall() {
   const [accounts, setAccounts] = useState([]);
@@ -47,7 +46,7 @@ function OperateCall() {
     return(
       <div>
         <h1>Operate Call Option</h1>
-        <div>{MetaMaskNotFound()}</div>
+        <div>{web3_not_found()}</div>
       </div>
     );
   } else {
@@ -62,7 +61,7 @@ function OperateCall() {
              silentOptionInfo, setSilentOptionInfo),
           '4': ExerciseExpire(web3, silentOption, silentOptionAddress, accounts,
              silentOptionInfo, setSilentOptionInfo),
-          '5': ContractExpired()
+          '5': contract_expired()
         }[contract_state]
       );
     }

@@ -7,11 +7,10 @@ import { state_mappings } from '../../utils/StateMappings';
 import TokenizedOption from '../../atomic-options/build/contracts/TokenizedOption';
 import PoolToken from '../../atomic-options/build/contracts/PoolToken';
 
-import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import { web3_not_found, contract_expired } from '../widgets/NoOp';
 import ContractNotInitialized from '../widgets/ContractNotInitialized';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import ExerciseExpire from '../widgets/ExerciseExpire';
-import ContractExpired from '../widgets/ContractExpired';
 
 function OperateTokenizedCall() {
   const [accounts, setAccounts] = useState([]);
@@ -60,7 +59,7 @@ function OperateTokenizedCall() {
     return(
       <div>
         <h1>Operate Tokenized Call Option</h1>
-        <div>{MetaMaskNotFound()}</div>
+        <div>{web3_not_found()}</div>
       </div>
     );
   } else {
@@ -77,7 +76,7 @@ function OperateTokenizedCall() {
           '4': ExerciseExpire(web3, option, optionAddress, accounts,
              optionInfo, setOptionInfo, true,
              tokenInfo, setTokenInfo),
-          '5': ContractExpired()
+          '5': contract_expired()
         }[contract_state]
       );
     }

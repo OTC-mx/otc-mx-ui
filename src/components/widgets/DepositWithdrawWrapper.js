@@ -2,7 +2,7 @@ import React from 'react';
 
 import Deposit from './Deposit';
 import Withdraw from './Withdraw';
-import Nonparticipant from './Nonparticipant';
+import { not_a_party } from './NoOp';
 
 function DepositWithdrawWrapper(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo) {
 
@@ -16,7 +16,7 @@ function DepositWithdrawWrapper(web3, accounts, portfolioAddress, portfolio, por
         Deposit(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo)
       ]);
     } else {
-      return([Nonparticipant(), '']);
+      return([not_a_party(), '']);
     }
   };
   let widgets = choose_widget();

@@ -7,7 +7,7 @@ import CustomInputComponent from '../../utils/FormikUtils';
 import OptionFactory from '../../atomic-options/build/contracts/OptionFactory';
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import Option from '../../atomic-options/build/contracts/Option';
-import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import { web3_not_found } from '../widgets/NoOp';
 
 function CreateCall() {
   const [preface, setPreface] = useState('');
@@ -17,7 +17,7 @@ function CreateCall() {
   const [optionAddress, setOptionAddress] = useState('');
   let metamask_message;
   if (typeof window.ethereum == 'undefined'){
-    metamask_message = MetaMaskNotFound();
+    metamask_message = web3_not_found();
   } else {
     metamask_message = (function () {
       (async function () {

@@ -8,7 +8,7 @@ import CustomInputComponent from '../../utils/FormikUtils';
 import SilentOptionFactory from '../../atomic-options/build/contracts/SilentOptionFactory';
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import SilentOption from '../../atomic-options/build/contracts/SilentOption';
-import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import { web3_not_found } from '../widgets/NoOp';
 
 function CreateSilentCall() {
   const [preface, setPreface] = useState('');
@@ -18,7 +18,7 @@ function CreateSilentCall() {
   const [silentOptionAddress, setSilentOptionAddress] = useState('');
   let metamask_message;
   if (typeof window.ethereum == 'undefined'){
-    metamask_message = MetaMaskNotFound();
+    metamask_message = web3_not_found();
   } else {
     metamask_message = (function () {
       (async function () {

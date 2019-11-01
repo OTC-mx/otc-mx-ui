@@ -9,7 +9,7 @@ import ManagedForwardFactory from '../../atomic-options/build/contracts/ManagedF
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import ManagedForward from '../../atomic-options/build/contracts/ManagedForward';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
-import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import { web3_not_found } from '../widgets/NoOp';
 
 function CreateManagedForward() {
   const [preface, setPreface] = useState('');
@@ -20,7 +20,7 @@ function CreateManagedForward() {
   const [forwardAddress, setForwardAddress] = useState('');
   let metamask_message;
   if (typeof window.ethereum == 'undefined'){
-    metamask_message = MetaMaskNotFound();
+    metamask_message = web3_not_found();
   } else {
     metamask_message = (function () {
       (async function () {

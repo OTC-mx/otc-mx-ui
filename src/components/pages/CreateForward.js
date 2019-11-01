@@ -7,7 +7,7 @@ import CustomInputComponent from '../../utils/FormikUtils';
 import ForwardFactory from '../../atomic-options/build/contracts/ForwardFactory';
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import Forward from '../../atomic-options/build/contracts/Forward';
-import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
+import { web3_not_found } from '../widgets/NoOp';
 
 function CreateForward() {
   const [preface, setPreface] = useState('');
@@ -17,7 +17,7 @@ function CreateForward() {
   const [forwardAddress, setForwardAddress] = useState('');
   let metamask_message;
   if (typeof window.ethereum == 'undefined'){
-    metamask_message = MetaMaskNotFound();
+    metamask_message = web3_not_found();
   } else {
     metamask_message = (function () {
       (async function () {
