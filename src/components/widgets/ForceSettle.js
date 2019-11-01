@@ -3,7 +3,7 @@ import { Formik, Field } from 'formik';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
-const ForceSettle = (web3, forward, forward_address, accounts, state_mappings,
+const ForceSettle = (web3, forward, forward_address, accounts,
                       forwardInfo, setForwardInfo, portfolioInfo, setPortfolioInfo) => (
   <div>
   <h2>Recursively Settle this Forward</h2>

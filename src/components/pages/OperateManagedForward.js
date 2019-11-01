@@ -94,13 +94,13 @@ function OperateManagedForward() {
           '0': ContractNotInitialized(),
           '1': ContractNotInitialized(),
           '2': PayFeeActivateAbort(web3, forward, forwardAddress, accounts,
-             state_mappings, forwardInfo, setForwardInfo, false, true,
+             forwardInfo, setForwardInfo, false, true,
              portfolioInfo, setPortfolioInfo),
           '3': SettleNoAction(web3, forward, forwardAddress, accounts,
-             state_mappings, forwardInfo, setForwardInfo,
+             forwardInfo, setForwardInfo,
              true, portfolioInfo, setPortfolioInfo, isForceSettle),
           '4': SettleNoAction(web3, forward, forwardAddress, accounts,
-             state_mappings, forwardInfo, setForwardInfo,
+             forwardInfo, setForwardInfo,
              true, portfolioInfo, setPortfolioInfo, isForceSettle),
           '5': ContractExpired()
         }[contract_state]

@@ -5,7 +5,7 @@ import CustomInputComponent from '../../utils/FormikUtils';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
-const ExerciseCall = (web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo) => (
+const ExerciseCall = (web3, option, option_address, accounts, optionInfo, setOptionInfo) => (
   <div>
   <h2>Exercise this Option</h2>
 

@@ -57,11 +57,11 @@ function OperateForward() {
           '0': ContractNotInitialized(),
           '1': ContractNotInitialized(),
           '2': PayFeeActivateAbort(web3, forward, forwardAddress, accounts,
-             state_mappings, forwardInfo, setForwardInfo, true),
+             forwardInfo, setForwardInfo, true),
           '3': SettleNoAction(web3, forward, forwardAddress, accounts,
-             state_mappings, forwardInfo, setForwardInfo),
+             forwardInfo, setForwardInfo),
           '4': SettleNoAction(web3, forward, forwardAddress, accounts,
-             state_mappings, forwardInfo, setForwardInfo),
+             forwardInfo, setForwardInfo),
           '5': ContractExpired()
         }[contract_state]
       );

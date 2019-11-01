@@ -70,12 +70,12 @@ function OperateTokenizedCall() {
           '0': ContractNotInitialized(),
           '1': ContractNotInitialized(),
           '2': PayFeeActivateAbort(web3, option, optionAddress, accounts,
-             state_mappings, optionInfo, setOptionInfo),
+             optionInfo, setOptionInfo),
           '3': ExerciseExpire(web3, option, optionAddress, accounts,
-             state_mappings, optionInfo, setOptionInfo, true,
+             optionInfo, setOptionInfo, true,
              tokenInfo, setTokenInfo),
           '4': ExerciseExpire(web3, option, optionAddress, accounts,
-             state_mappings, optionInfo, setOptionInfo, true,
+             optionInfo, setOptionInfo, true,
              tokenInfo, setTokenInfo),
           '5': ContractExpired()
         }[contract_state]

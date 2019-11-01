@@ -1,9 +1,9 @@
 import React from 'react';
 
 import ChooseExercise from './ChooseExercise';
-import Expire from './Expire'
-import NoAction from './NoAction'
-import Nonparticipant from './Nonparticipant'
+import { expire } from './SingleButtonWrappers';
+import NoAction from './NoAction';
+import Nonparticipant from './Nonparticipant';
 
 function ExerciseExpire(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo,
                         is_tokenized = false,
@@ -38,7 +38,8 @@ function ExerciseExpire(web3, option, option_address, accounts, state_mappings, 
                             is_tokenized,
                             tokenInfo, setTokenInfo));
     } else if (expirable) {
-      return(Expire(web3, option, option_address, accounts, state_mappings, optionInfo, setOptionInfo, "Expire",
+      return(expire(web3, option, option_address, accounts,
+                    state_mappings, optionInfo, setOptionInfo, "Expire",
                     is_tokenized,
                     tokenInfo, setTokenInfo));
     } else if ((address_lower === issuer_lower) || (address_lower == buyer_lower) ||

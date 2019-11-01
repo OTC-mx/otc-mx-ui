@@ -1,13 +1,11 @@
 import React from 'react';
 
-import PayFee from './PayFee';
-import Activate from './Activate';
 import ActivateManaged from './ActivateManaged';
-import Expire from './Expire';
+import { pay_fee, expire, activate } from './SingleButtonWrappers';
 import Nonparticipant from './Nonparticipant';
 
 function PayFeeActivateAbort(web3, derivative, derivative_address, accounts,
-    state_mappings, derivativeInfo, setDerivativeInfo,
+    derivativeInfo, setDerivativeInfo,
     forward = false, managed_forward = false, portfolioInfo = 0, setPortfolioInfo = 0) {
 
   function choose_widget() {
@@ -18,15 +16,18 @@ function PayFeeActivateAbort(web3, derivative, derivative_address, accounts,
 
     if (address_lower == buyer_lower) {
       if (forward) {
-        return(Activate(web3, derivative, derivative_address, accounts, state_mappings, derivativeInfo, setDerivativeInfo));
+        return(activate(web3, derivative, derivative_address,
+                        accounts, derivativeInfo, setDerivativeInfo));
       } else if (managed_forward) {
         return(ActivateManaged(web3, derivative, derivative_address, accounts,
-          state_mappings, derivativeInfo, setDerivativeInfo, portfolioInfo, setPortfolioInfo));
+          derivativeInfo, setDerivativeInfo, portfolioInfo, setPortfolioInfo));
       } else {
-        return(PayFee(web3, derivative, derivative_address, accounts, state_mappings, derivativeInfo, setDerivativeInfo));
+        return(pay_fee(web3, derivative, derivative_address,
+                        accounts, derivativeInfo, setDerivativeInfo));
       }
     } else if (address_lower == issuer_lower) {
-      return(Expire(web3, derivative, derivative_address, accounts, state_mappings, derivativeInfo, setDerivativeInfo,
+      return(expire(web3, derivative, derivative_address,
+                    accounts, derivativeInfo, setDerivativeInfo,
                     "Abort"));
     } else {
       return(Nonparticipant());

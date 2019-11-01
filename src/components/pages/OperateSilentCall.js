@@ -57,11 +57,11 @@ function OperateCall() {
           '0': ContractNotInitialized(),
           '1': ContractNotInitialized(),
           '2': PayFeeActivateAbort(web3, silentOption, silentOptionAddress, accounts,
-             state_mappings, silentOptionInfo, setSilentOptionInfo),
+             silentOptionInfo, setSilentOptionInfo),
           '3': ExerciseExpire(web3, silentOption, silentOptionAddress, accounts,
-             state_mappings, silentOptionInfo, setSilentOptionInfo),
+             silentOptionInfo, setSilentOptionInfo),
           '4': ExerciseExpire(web3, silentOption, silentOptionAddress, accounts,
-             state_mappings, silentOptionInfo, setSilentOptionInfo),
+             silentOptionInfo, setSilentOptionInfo),
           '5': ContractExpired()
         }[contract_state]
       );

@@ -6,7 +6,7 @@ import CustomInputComponent from '../../utils/FormikUtils';
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
 
-const ActivateManaged = (web3, forward, forward_address, accounts, state_mappings, forwardInfo, setForwardInfo,
+const ActivateManaged = (web3, forward, forward_address, accounts, forwardInfo, setForwardInfo,
                           portfolioInfo, setPortfolioInfo) => (
   <div>
   <h2>Activate this Managed Forward</h2>

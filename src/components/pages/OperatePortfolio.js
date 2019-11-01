@@ -3,7 +3,6 @@ import { Formik, Field } from 'formik';
 import Web3 from 'web3';
 
 import CustomInputComponent from '../../utils/FormikUtils';
-import { state_mappings } from '../../utils/StateMappings';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
 
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';

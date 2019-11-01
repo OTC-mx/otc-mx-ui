@@ -5,7 +5,6 @@ import Web3 from 'web3';
 import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
 import PortfolioFactory from '../../atomic-options/build/contracts/PortfolioFactory';
-import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
 import MetaMaskNotFound from '../widgets/MetaMaskNotFound';
 

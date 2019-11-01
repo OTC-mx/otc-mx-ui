@@ -6,7 +6,7 @@ import CustomInputComponent from '../../utils/FormikUtils';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
-const ExerciseSilentCall = (web3, silent_option, silent_option_address, accounts, state_mappings, silentOptionInfo, setSilentOptionInfo) => (
+const ExerciseSilentCall = (web3, silent_option, silent_option_address, accounts, silentOptionInfo, setSilentOptionInfo) => (
   <div>
   <h2>Exercise this Option</h2>
 
