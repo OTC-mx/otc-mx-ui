@@ -7,4 +7,13 @@ const state_mappings = ({
   '5': 'Expired'
 });
 
-export { state_mappings };
+const state_vals = ({
+  uninitialized: '0',
+  initialized: '1',
+  collateralized: '2',
+  active: '3',
+  exercised: '4',
+  expired: '5'
+});
+
+export { state_mappings, state_vals };

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { state_vals } from '../../utils/StateMappings';
 import ChooseExercise from './ChooseExercise';
 import { expire } from './SingleButtonWrappers';
 import { no_action, not_a_party } from './NoOp';
@@ -14,7 +15,8 @@ function ExerciseExpire(web3, option, option_address, accounts, state_mappings, 
     let issuer_lower = `${optionInfo[0]}`.trim().toLowerCase();
     let buyer_lower = `${optionInfo[1]}`.trim().toLowerCase();
 
-    let state_exercisable = ((optionInfo[10] == 3) || (optionInfo[10] == 4));
+    let state_exercisable = ((optionInfo[10] == state_vals.active) ||
+                              (optionInfo[10] == state_vals.exercised));
     let time_exercisable = ((current_time > optionInfo[8]) && (current_time < optionInfo[9]));
     let tokenized_exercisable = (is_tokenized && (tokenInfo[4] > 0));
     let non_tokenized_exercisable = ((! is_tokenized) &&
@@ -28,7 +30,7 @@ function ExerciseExpire(web3, option, option_address, accounts, state_mappings, 
                                 (tokenInfo[5] > 0));
     let non_tokenized_expirable = ((! is_tokenized) &&
                                     (current_time > optionInfo[9] || (optionInfo[7] == 0)) &&
-                                    (optionInfo[10] !== 5) &&
+                                    (optionInfo[10] !== state_vals.expired) &&
                                     (address_lower == issuer_lower));
     let expirable = (tokenized_expirable || non_tokenized_expirable);
 

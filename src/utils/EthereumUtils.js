@@ -16,4 +16,4 @@ function set_web3_message(window, setAccounts) {
   return web3_message;
 }
 
-export default { set_web3_message };
+export { set_web3_message };
