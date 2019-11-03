@@ -5,11 +5,11 @@ import * as Yup from "yup";
 
 import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
+import { set_web3_message } from '../../utils/EthereumUtils';
 import ManagedForwardFactory from '../../atomic-options/build/contracts/ManagedForwardFactory';
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import ManagedForward from '../../atomic-options/build/contracts/ManagedForward';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
-import { web3_not_found } from '../widgets/NoOp';
 
 function CreateManagedForward() {
   const [preface, setPreface] = useState('');
@@ -18,24 +18,13 @@ function CreateManagedForward() {
   const [accounts, setAccounts] = useState([]);
   const [addressPreface, setAddressPreface] = useState('');
   const [forwardAddress, setForwardAddress] = useState('');
-  let metamask_message;
-  if (typeof window.ethereum == 'undefined'){
-    metamask_message = web3_not_found();
-  } else {
-    metamask_message = (function () {
-      (async function () {
-        let accounts_temp = await window.ethereum.enable();
-        setAccounts(accounts_temp);
-      })();
-      return '';
-    })();
-  }
+  let web3_message = set_web3_message(window, setAccounts);
 
   return (
     <div>
       <h1>Create Managed Forward</h1>
       <p>Don't have a Portfolio? Create one <a href="/portfolio">here</a>.</p>
-      <div>{metamask_message}</div>
+      <div>{web3_message}</div>
       <Formik
         initialValues={{ buyer: '', base_addr: '', asset_addr:'',
                         strike_price_base: '', strike_price_quote: '',

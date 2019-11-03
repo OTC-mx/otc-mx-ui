@@ -4,9 +4,9 @@ import Web3 from 'web3';
 
 import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
+import { set_web3_message } from '../../utils/EthereumUtils';
 import PortfolioFactory from '../../atomic-options/build/contracts/PortfolioFactory';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
-import { web3_not_found } from '../widgets/NoOp';
 
 function CreatePortfolio() {
   const [addressPreface, setAddressPreface] = useState('');
@@ -15,23 +15,12 @@ function CreatePortfolio() {
   const [result, setResult] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [portfolioAddress, setPortfolioAddress] = useState('');
-  let metamask_message;
-  if (typeof window.ethereum == 'undefined'){
-    metamask_message = web3_not_found();
-  } else {
-    metamask_message = (function () {
-      (async function () {
-        let accounts_temp = await window.ethereum.enable();
-        setAccounts(accounts_temp);
-      })();
-      return '';
-    })();
-  }
+  let web3_message = set_web3_message(window, setAccounts);
 
   return (
     <div>
       <h1>Create Forward Portfolio</h1>
-      <div>{metamask_message}</div>
+      <div>{web3_message}</div>
       <Formik
         initialValues={{ base_addr: '', asset_addr:'' }}
         onSubmit={(values, actions) => {

@@ -4,11 +4,11 @@ import Web3 from 'web3';
 
 import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
+import { set_web3_message } from '../../utils/EthereumUtils';
 import TokenizedOptionFactory from '../../atomic-options/build/contracts/TokenizedOptionFactory';
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import PoolToken from '../../atomic-options/build/contracts/PoolToken';
 import TokenizedOption from '../../atomic-options/build/contracts/Option';
-import { web3_not_found } from '../widgets/NoOp';
 
 function CreateTokenizedCall() {
   const [preface, setPreface] = useState('');
@@ -16,23 +16,12 @@ function CreateTokenizedCall() {
   const [result, setResult] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [optionAddress, setOptionAddress] = useState('');
-  let metamask_message;
-  if (typeof window.ethereum == 'undefined'){
-    metamask_message = web3_not_found();
-  } else {
-    metamask_message = (function () {
-      (async function () {
-        let accounts_temp = await window.ethereum.enable();
-        setAccounts(accounts_temp);
-      })();
-      return '';
-    })();
-  }
+  let web3_message = set_web3_message(window, setAccounts);
 
   return (
     <div>
       <h1>Create Tokenized Call Option</h1>
-      <div>{metamask_message}</div>
+      <div>{web3_message}</div>
       <Formik
         initialValues={{ buyer: '', base_addr: '', asset_addr:'',
                         fee: '', strike_price_base: '', strike_price_quote: '',
