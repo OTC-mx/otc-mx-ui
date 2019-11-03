@@ -6,7 +6,6 @@ import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
 import { set_web3_message } from '../../utils/EthereumUtils';
 import TokenizedOptionFactory from '../../atomic-options/build/contracts/TokenizedOptionFactory';
-import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import PoolToken from '../../atomic-options/build/contracts/PoolToken';
 import TokenizedOption from '../../atomic-options/build/contracts/Option';
 

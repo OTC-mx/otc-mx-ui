@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 
 const SingleButtonAction = (web3, derivative, derivative_address, accounts,
                             derivativeInfo, setDerivativeInfo,

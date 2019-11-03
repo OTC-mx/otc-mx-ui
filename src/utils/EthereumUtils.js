@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { web3_not_found } from '../components/widgets/NoOp';
 
 function set_web3_message(window, setAccounts) {

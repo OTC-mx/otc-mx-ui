@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Field } from 'formik';
 import Web3 from 'web3';
 
-import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
 import TokenizedOption from '../../atomic-options/build/contracts/TokenizedOption';
-import PoolToken from '../../atomic-options/build/contracts/PoolToken';
 
 import { web3_not_found, contract_not_initialized, contract_expired } from '../widgets/NoOp';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';

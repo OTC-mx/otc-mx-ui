@@ -1,8 +1,4 @@
-import React from 'react';
-
 import PortfolioAction from './PortfolioAction';
-
-import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
 function deposit(web3, accounts, portfolioAddress, portfolio,
                   portfolioInfo, setPortfolioInfo) {

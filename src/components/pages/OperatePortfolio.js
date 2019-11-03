@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Field } from 'formik';
 import Web3 from 'web3';
 
-import CustomInputComponent from '../../utils/FormikUtils';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
 
 import { web3_not_found } from '../widgets/NoOp';

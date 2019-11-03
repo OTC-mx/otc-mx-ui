@@ -6,7 +6,6 @@ import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';
 import { set_web3_message } from '../../utils/EthereumUtils';
 import PortfolioFactory from '../../atomic-options/build/contracts/PortfolioFactory';
-import Portfolio from '../../atomic-options/build/contracts/Portfolio';
 
 function CreatePortfolio() {
   const [addressPreface, setAddressPreface] = useState('');

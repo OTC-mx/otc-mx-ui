@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import Web3 from 'web3';
-import * as Yup from "yup";
 
 import ProviderMappings from '../../utils/ProviderMappings';
 import CustomInputComponent from '../../utils/FormikUtils';

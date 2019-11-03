@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SingleButtonAction from './SingleButtonAction';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';

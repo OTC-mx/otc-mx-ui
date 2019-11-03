@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Field } from 'formik';
 import Web3 from 'web3';
 import { ethers } from 'ethers';
 
-import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
 import ManagedForward from '../../atomic-options/build/contracts/ManagedForward';
 
