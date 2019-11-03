@@ -7,4 +7,4 @@ const state_mappings = ({
   '5': 'Expired'
 });
 
-module.exports.state_mappings = state_mappings;
+export { state_mappings };

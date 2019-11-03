@@ -46,10 +46,6 @@ const rinkeby_token_mappings = ({
   'b': '0xf70E4D59A9268d777996e00aB41604D40936BD12',
 });
 
-module.exports.option_factory_mappings = option_factory_mappings;
-module.exports.silent_option_factory_mappings = silent_option_factory_mappings;
-module.exports.tokenized_option_factory_mappings = tokenized_option_factory_mappings;
-module.exports.forward_factory_mappings = forward_factory_mappings;
-module.exports.portfolio_factory_mappings = portfolio_factory_mappings;
-module.exports.managed_forward_factory_mappings = managed_forward_factory_mappings;
-module.exports.local_token_mappings = local_token_mappings;
+export default { option_factory_mappings, silent_option_factory_mappings, tokenized_option_factory_mappings,
+                  forward_factory_mappings, portfolio_factory_mappings, managed_forward_factory_mappings,
+                  local_token_mappings, rinkeby_token_mappings };
