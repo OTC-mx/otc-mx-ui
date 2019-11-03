@@ -6,6 +6,7 @@ import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
 function deposit(web3, accounts, portfolioAddress, portfolio,
                   portfolioInfo, setPortfolioInfo) {
+  if (! portfolio.methods){ return ''; }
   let deposit_method = portfolio.methods.deposit;
   return(PortfolioAction(web3, accounts, portfolioAddress, portfolio,
                           portfolioInfo, setPortfolioInfo,
@@ -16,6 +17,7 @@ function deposit(web3, accounts, portfolioAddress, portfolio,
 
 function withdraw(web3, accounts, portfolioAddress, portfolio,
                   portfolioInfo, setPortfolioInfo) {
+  if (! portfolio.methods){ return ''; }
   let withdraw_method = portfolio.methods.withdraw;
   return(PortfolioAction(web3, accounts, portfolioAddress, portfolio,
                           portfolioInfo, setPortfolioInfo,
