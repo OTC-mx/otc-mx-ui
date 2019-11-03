@@ -10,7 +10,7 @@ import ManagedForward from '../../atomic-options/build/contracts/ManagedForward'
 import { web3_not_found, contract_expired } from '../widgets/NoOp';
 import ContractNotInitialized from '../widgets/ContractNotInitialized';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
-import SettleNoAction from '../widgets/SettleNoAction';
+import SettleWrapper from '../widgets/SettleWrapper';
 
 function OperateManagedForward() {
   const [accounts, setAccounts] = useState([]);
@@ -95,10 +95,10 @@ function OperateManagedForward() {
           '2': PayFeeActivateAbort(web3, forward, forwardAddress, accounts,
              forwardInfo, setForwardInfo, false, true,
              portfolioInfo, setPortfolioInfo),
-          '3': SettleNoAction(web3, forward, forwardAddress, accounts,
+          '3': SettleWrapper(web3, forward, forwardAddress, accounts,
              forwardInfo, setForwardInfo,
              true, portfolioInfo, setPortfolioInfo, isForceSettle),
-          '4': SettleNoAction(web3, forward, forwardAddress, accounts,
+          '4': SettleWrapper(web3, forward, forwardAddress, accounts,
              forwardInfo, setForwardInfo,
              true, portfolioInfo, setPortfolioInfo, isForceSettle),
           '5': contract_expired()

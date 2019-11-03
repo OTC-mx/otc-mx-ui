@@ -3,7 +3,7 @@ import React from 'react';
 import { no_action, not_a_party } from './NoOp';
 import { settle, force_settle } from './SingleButtonWrappers';
 
-function SettleNoAction(web3, forward, forwardAddress, accounts,
+function SettleWrapper(web3, forward, forwardAddress, accounts,
    forwardInfo, setForwardInfo,
    is_managed = false, portfolioInfo = [0] * 6, setPortfolioInfo = 0,
    isForceSettle = false) {
@@ -42,4 +42,4 @@ function SettleNoAction(web3, forward, forwardAddress, accounts,
   );
 }
 
-export default SettleNoAction;
+export default SettleWrapper;
