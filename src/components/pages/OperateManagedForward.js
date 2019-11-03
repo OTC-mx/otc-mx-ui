@@ -7,8 +7,7 @@ import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
 import ManagedForward from '../../atomic-options/build/contracts/ManagedForward';
 
-import { web3_not_found, contract_expired } from '../widgets/NoOp';
-import ContractNotInitialized from '../widgets/ContractNotInitialized';
+import { web3_not_found, contract_not_initialized, contract_expired } from '../widgets/NoOp';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import SettleWrapper from '../widgets/SettleWrapper';
 
@@ -90,8 +89,8 @@ function OperateManagedForward() {
     function operate_display(contract_state) {
       return (
         {
-          '0': ContractNotInitialized(),
-          '1': ContractNotInitialized(),
+          '0': contract_not_initialized(),
+          '1': contract_not_initialized(),
           '2': PayFeeActivateAbort(web3, forward, forwardAddress, accounts,
              forwardInfo, setForwardInfo, false, true,
              portfolioInfo, setPortfolioInfo),

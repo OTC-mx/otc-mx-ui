@@ -7,6 +7,13 @@ const web3_not_found = () => (
   </div>
 );
 
+const contract_not_initialized = () => (
+  <div>
+    <h2>Contract not Initialized/Collateralized</h2>
+    <p>You should probably fix this with the API or create a new one.</p>
+  </div>
+);
+
 const no_action = () => (
   <div>
     <h2>No Action</h2>
@@ -28,4 +35,4 @@ const contract_expired = () => (
   </div>
 );
 
-export { web3_not_found, no_action, not_a_party, contract_expired };
+export { web3_not_found, contract_not_initialized, no_action, not_a_party, contract_expired };

@@ -6,8 +6,7 @@ import CustomInputComponent from '../../utils/FormikUtils';
 import { state_mappings } from '../../utils/StateMappings';
 import Option from '../../atomic-options/build/contracts/Option';
 
-import { web3_not_found, contract_expired } from '../widgets/NoOp';
-import ContractNotInitialized from '../widgets/ContractNotInitialized';
+import { web3_not_found, contract_not_initialized, contract_expired } from '../widgets/NoOp';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import ExerciseExpire from '../widgets/ExerciseExpire';
 
@@ -53,8 +52,8 @@ function OperateCall() {
     function operate_display(contract_state) {
       return (
         {
-          '0': ContractNotInitialized(),
-          '1': ContractNotInitialized(),
+          '0': contract_not_initialized(),
+          '1': contract_not_initialized(),
           '2': PayFeeActivateAbort(web3, option, optionAddress, accounts,
              optionInfo, setOptionInfo),
           '3': ExerciseExpire(web3, option, optionAddress, accounts,
