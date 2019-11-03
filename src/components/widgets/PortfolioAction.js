@@ -5,9 +5,12 @@ import CustomInputComponent from '../../utils/FormikUtils';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
-const Deposit = (web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo) => (
+const PortfolioAction = (web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo,
+                          title_str, button_str,
+                          primary_method,
+                          requires_approve = false) => (
   <div>
-  <h2>Deposit Funds to this Portfolio</h2>
+  <h2>{title_str} this Portfolio</h2>
 
   <Formik
     id = "nested"
@@ -18,37 +21,20 @@ const Deposit = (web3, accounts, portfolioAddress, portfolio, portfolioInfo, set
         (function () {
           (async function () {
 
-            let deposit_call;
-            let approve_call;
-            if (values.token == 'base') {
-              let base = new web3.eth.Contract(ERC20.abi, portfolioInfo[0]);
-              approve_call = await (
-                base
+            let token_address = ((values.token == 'base') ? portfolioInfo[0] : portfolioInfo[1]);
+            if (requires_approve) {
+              let token = new web3.eth.Contract(ERC20.abi, token_address);
+              let approve_call = await (
+                token
                 .methods
                 .approve(portfolioAddress, values.volume)
-                .send({ from: accounts[0] })
-              );
-              deposit_call = await (
-                portfolio
-                .methods
-                .deposit(portfolioInfo[0], values.volume)
-                .send({ from: accounts[0] })
-              );
-            } else if (values.token == 'asset') {
-              let asset = new web3.eth.Contract(ERC20.abi, portfolioInfo[1]);
-              approve_call = await (
-                asset
-                .methods
-                .approve(portfolioAddress, values.volume)
-                .send({ from: accounts[0] })
-              );
-              deposit_call = await (
-                portfolio
-                .methods
-                .deposit(portfolioInfo[1], values.volume)
                 .send({ from: accounts[0] })
               );
             }
+
+            let primary_call = await (
+              primary_method(token_address, values.volume)
+              .send({ from: accounts[0] }));
 
             let portfolio_info_call = await (
               portfolio
@@ -63,17 +49,17 @@ const Deposit = (web3, accounts, portfolioAddress, portfolio, portfolioInfo, set
     }}
     render={(props: FormikProps<Values>) => (
       <form onSubmit={props.handleSubmit}>
-        <small>Deposit: </small>
+        <small>Token: </small>
         <Field name="token" component="select" >
           <option value="base">Base Token</option>
           <option value="asset">Asset</option>
         </Field>
         <Field name="volume" placeholder="Volume" component={CustomInputComponent}/>
-        <button type="submit">Deposit</button>
+        <button type="submit">{button_str}</button>
       </form>
     )}
   />
   </div>
 );
 
-export default Deposit;
+export default PortfolioAction;

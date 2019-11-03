@@ -1,5 +1,4 @@
 import React from 'react';
-import { Formik, Field } from 'formik';
 
 import SingleButtonAction from './SingleButtonAction';
 

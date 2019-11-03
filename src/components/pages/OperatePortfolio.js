@@ -6,7 +6,7 @@ import CustomInputComponent from '../../utils/FormikUtils';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
 
 import { web3_not_found } from '../widgets/NoOp';
-import DepositWithdrawWrapper from '../widgets/DepositWithdrawWrapper';
+import PortfolioWidgets from '../widgets/PortfolioWidgets';
 
 function OperatePortfolio() {
   const [accounts, setAccounts] = useState([]);
@@ -80,7 +80,7 @@ function OperatePortfolio() {
           </tbody>
         </table>
         <div>
-          {DepositWithdrawWrapper(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo)}
+          {PortfolioWidgets(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo)}
         </div>
       </div>
     );

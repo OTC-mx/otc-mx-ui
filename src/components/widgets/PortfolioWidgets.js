@@ -1,10 +1,9 @@
 import React from 'react';
 
-import Deposit from './Deposit';
-import Withdraw from './Withdraw';
+import { deposit, withdraw } from './PortfolioWrappers';
 import { not_a_party } from './NoOp';
 
-function DepositWithdrawWrapper(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo) {
+function PortfolioWidgets(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo) {
 
   function choose_widget() {
     let address_lower = `${accounts[0]}`.trim().toLowerCase();
@@ -12,8 +11,8 @@ function DepositWithdrawWrapper(web3, accounts, portfolioAddress, portfolio, por
 
     if (address_lower == owner_lower) {
       return([
-        Withdraw(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo),
-        Deposit(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo)
+        withdraw(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo),
+        deposit(web3, accounts, portfolioAddress, portfolio, portfolioInfo, setPortfolioInfo)
       ]);
     } else {
       return([not_a_party(), '']);
@@ -30,4 +29,4 @@ function DepositWithdrawWrapper(web3, accounts, portfolioAddress, portfolio, por
   );
 }
 
-export default DepositWithdrawWrapper;
+export default PortfolioWidgets;
