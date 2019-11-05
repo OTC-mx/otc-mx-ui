@@ -7,9 +7,9 @@ const Header = () => (
         <li><a href="/">Home</a></li>
         <li><a href="/whitepaper">Whitepaper</a></li>
         <li>
-          <div class="dropdown">
-            <button class="dropbtn">Options</button>
-            <div class="dropdown-content">
+          <div className="dropdown">
+            <button className="dropbtn">Options</button>
+            <div className="dropdown-content">
               <a href="/call">Call Options</a>
               <a href="/silentcall">Silent Call Options</a>
               <a href="/tokenizedcall">Tokenized Call Options</a>
@@ -17,9 +17,9 @@ const Header = () => (
           </div>
         </li>
         <li>
-          <div class="dropdown">
-            <button class="dropbtn">Forwards</button>
-            <div class="dropdown-content">
+          <div className="dropdown">
+            <button className="dropbtn">Forwards</button>
+            <div className="dropdown-content">
               <a href="/forward">Forwards</a>
               <a href="/portfolio">Forward Portfolios</a>
               <a href="/managedforward">Managed Forwards</a>
