@@ -1,19 +1,23 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 
-import { CustomInputComponent } from '../../utils/FormikUtils';
+import { CustomInputComponent, get_schema } from '../../utils/FormikUtils';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
 function ExerciseTokenizedCall(web3, option, option_address, accounts, optionInfo, setOptionInfo,
                                 tokenInfo, setTokenInfo) {
+  const initialValues = ({ amount: '' });
+  const validationSchema = get_schema(Object.keys(initialValues), web3);
+
   return(
     <div>
     <h2>Exercise this Option</h2>
 
     <Formik
       id = "nested"
-      initialValues={{amount: ''}}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={(values, actions) => {
         setTimeout(() => {
           actions.setSubmitting(false);

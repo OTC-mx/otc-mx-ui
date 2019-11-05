@@ -2,19 +2,23 @@ import React from 'react';
 import { Formik, Field } from 'formik';
 import { ethers } from 'ethers';
 
-import { CustomInputComponent } from '../../utils/FormikUtils';
+import { CustomInputComponent, get_schema } from '../../utils/FormikUtils';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 
 function ExerciseSilentCall(web3, silent_option, silent_option_address, accounts,
                             silentOptionInfo, setSilentOptionInfo) {
+  const initialValues = ({ strike_price_base: '', strike_price_quote:'', salt: '', amount: '' });
+  const validationSchema = get_schema(Object.keys(initialValues), web3);
+
   return(
     <div>
     <h2>Exercise this Option</h2>
 
     <Formik
       id = "nested"
-      initialValues={{strike_price_base: '', strike_price_quote:'', salt: '', amount: ''}}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={(values, actions) => {
         setTimeout(() => {
           actions.setSubmitting(false);

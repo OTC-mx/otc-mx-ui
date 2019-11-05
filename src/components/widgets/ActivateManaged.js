@@ -1,20 +1,24 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 
-import { CustomInputComponent } from '../../utils/FormikUtils';
+import { CustomInputComponent, get_schema } from '../../utils/FormikUtils';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';
 
 function ActivateManaged(web3, forward, forward_address, accounts, forwardInfo, setForwardInfo,
                           portfolioInfo, setPortfolioInfo) {
+  const initialValues = ({ activate_from: 'address', matched_addr: '' });
+  const validationSchema = get_schema(Object.keys(initialValues), web3);
+
   return(
     <div>
     <h2>Activate this Managed Forward</h2>
 
     <Formik
       id = "nested"
-      initialValues={{activate_from: 'address', matched_addr: ''}}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={(values, actions) => {
         setTimeout(() => {
           actions.setSubmitting(false);

@@ -97,6 +97,7 @@ function get_schema(keys, web3) {
     issuer_portfolio: validations.addressSchema,
     buyer_portfolio: validations.addressSchema,
     matched_addr: validations.nullableAddressSchema,
+    amount: validations.positiveUintSchema,
   };
 
   let schema = {};
