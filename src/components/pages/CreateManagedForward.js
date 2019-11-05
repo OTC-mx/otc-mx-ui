@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
-import Web3 from 'web3';
 
 import ProviderMappings from '../../utils/ProviderMappings';
-import CustomInputComponent from '../../utils/FormikUtils';
-import { set_web3_message } from '../../utils/EthereumUtils';
+import { CustomInputComponent, get_schema } from '../../utils/FormikUtils';
+import { set_web3 } from '../../utils/EthereumUtils';
 import ManagedForwardFactory from '../../atomic-options/build/contracts/ManagedForwardFactory';
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import ManagedForward from '../../atomic-options/build/contracts/ManagedForward';
@@ -17,7 +16,14 @@ function CreateManagedForward() {
   const [accounts, setAccounts] = useState([]);
   const [addressPreface, setAddressPreface] = useState('');
   const [forwardAddress, setForwardAddress] = useState('');
-  let web3_message = set_web3_message(window, setAccounts);
+  let [web3, web3_message] = set_web3(window, setAccounts);
+
+  const initialValues = ({ buyer: '', base_addr: '', asset_addr:'',
+                          strike_price_base: '', strike_price_quote: '',
+                          volume: '', maturity_time: '',
+                          issuer_portfolio: '', buyer_portfolio: '',
+                          collateralize_from: 'address', matched_addr: '' });
+  const validationSchema = get_schema(Object.keys(initialValues), web3);
 
   return (
     <div>
@@ -25,18 +31,14 @@ function CreateManagedForward() {
       <p>Don't have a Portfolio? Create one <a href="/portfolio">here</a>.</p>
       <div>{web3_message}</div>
       <Formik
-        initialValues={{ buyer: '', base_addr: '', asset_addr:'',
-                        strike_price_base: '', strike_price_quote: '',
-                        volume: '', maturity_time: '',
-                        issuer_portfolio: '', buyer_portfolio: '',
-                        collateralize_from: 'address', matched_addr: ''}}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={(values, actions) => {
           setTimeout(() => {
             actions.setSubmitting(false);
 
             (function () {
               (async function () {
-                let web3 = new Web3(window.ethereum);
                 const network_type = await web3.eth.net.getNetworkType();
                 const factory_address = ProviderMappings.managed_forward_factory_mappings[network_type];
 

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
-import Web3 from 'web3';
 
 import ProviderMappings from '../../utils/ProviderMappings';
-import CustomInputComponent from '../../utils/FormikUtils';
-import { set_web3_message } from '../../utils/EthereumUtils';
+import { CustomInputComponent, get_schema } from '../../utils/FormikUtils';
+import { set_web3 } from '../../utils/EthereumUtils';
 import PortfolioFactory from '../../atomic-options/build/contracts/PortfolioFactory';
 
 function CreatePortfolio() {
@@ -14,21 +13,24 @@ function CreatePortfolio() {
   const [result, setResult] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [portfolioAddress, setPortfolioAddress] = useState('');
-  let web3_message = set_web3_message(window, setAccounts);
+  let [web3, web3_message] = set_web3(window, setAccounts);
+
+  const initialValues = ({ base_addr: '', asset_addr:'' });
+  const validationSchema = get_schema(Object.keys(initialValues), web3);
 
   return (
     <div>
       <h1>Create Forward Portfolio</h1>
       <div>{web3_message}</div>
       <Formik
-        initialValues={{ base_addr: '', asset_addr:'' }}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={(values, actions) => {
           setTimeout(() => {
             actions.setSubmitting(false);
 
             (function () {
               (async function () {
-                let web3 = new Web3(window.ethereum);
                 const network_type = await web3.eth.net.getNetworkType();
                 const factory_address = ProviderMappings.portfolio_factory_mappings[network_type];
 

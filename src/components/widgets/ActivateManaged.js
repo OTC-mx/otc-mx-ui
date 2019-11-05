@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 
-import CustomInputComponent from '../../utils/FormikUtils';
+import { CustomInputComponent } from '../../utils/FormikUtils';
 
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';

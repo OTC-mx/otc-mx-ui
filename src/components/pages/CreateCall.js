@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
-import Web3 from 'web3';
 
 import ProviderMappings from '../../utils/ProviderMappings';
-import CustomInputComponent from '../../utils/FormikUtils';
-import { set_web3_message } from '../../utils/EthereumUtils';
+import { CustomInputComponent, get_schema } from '../../utils/FormikUtils';
+import { set_web3 } from '../../utils/EthereumUtils';
 import OptionFactory from '../../atomic-options/build/contracts/OptionFactory';
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import Option from '../../atomic-options/build/contracts/Option';
@@ -15,23 +14,26 @@ function CreateCall() {
   const [result, setResult] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [optionAddress, setOptionAddress] = useState('');
-  let web3_message = set_web3_message(window, setAccounts);
+  let [web3, web3_message] = set_web3(window, setAccounts);
 
+  const initialValues = ({ buyer: '', base_addr: '', asset_addr:'',
+                          fee: '', strike_price_base: '', strike_price_quote: '',
+                          volume: '', maturity_time: '', expiry_time:'' });
+  const validationSchema = get_schema(Object.keys(initialValues), web3);
+  
   return (
     <div>
       <h1>Create Call Option</h1>
       <div>{web3_message}</div>
       <Formik
-        initialValues={{ buyer: '', base_addr: '', asset_addr:'',
-                        fee: '', strike_price_base: '', strike_price_quote: '',
-                        volume: '', maturity_time: '', expiry_time:''}}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={(values, actions) => {
           setTimeout(() => {
             actions.setSubmitting(false);
 
             (function () {
               (async function () {
-                let web3 = new Web3(window.ethereum);
                 const network_type = await web3.eth.net.getNetworkType();
                 const factory_address = ProviderMappings.option_factory_mappings[network_type];
 

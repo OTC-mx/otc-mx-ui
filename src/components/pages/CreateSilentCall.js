@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
-import Web3 from 'web3';
-import { ethers } from 'ethers'
+import { ethers } from 'ethers';
 
 import ProviderMappings from '../../utils/ProviderMappings';
-import CustomInputComponent from '../../utils/FormikUtils';
-import { set_web3_message } from '../../utils/EthereumUtils';
+import { CustomInputComponent, get_schema } from '../../utils/FormikUtils';
+import { set_web3 } from '../../utils/EthereumUtils';
 import SilentOptionFactory from '../../atomic-options/build/contracts/SilentOptionFactory';
 import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import SilentOption from '../../atomic-options/build/contracts/SilentOption';
@@ -16,23 +15,27 @@ function CreateSilentCall() {
   const [result, setResult] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [silentOptionAddress, setSilentOptionAddress] = useState('');
-  let web3_message = set_web3_message(window, setAccounts);
+  let [web3, web3_message] = set_web3(window, setAccounts);
+
+  const initialValues = ({ buyer: '', base_addr: '', asset_addr:'',
+                          fee: '', strike_price_base: '', strike_price_quote: '',
+                          volume: '', maturity_time: '', expiry_time:'',
+                          salt: '' });
+  const validationSchema = get_schema(Object.keys(initialValues), web3);
 
   return (
     <div>
       <h1>Create Silent Call Option</h1>
       <div>{web3_message}</div>
       <Formik
-        initialValues={{ buyer: '', base_addr: '', asset_addr:'',
-                        fee: '', strike_price_base_hash: '', strike_price_quote_hash: '',
-                        volume: '', maturity_time: '', expiry_time: '', salt: ''}}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={(values, actions) => {
           setTimeout(() => {
             actions.setSubmitting(false);
 
             (function () {
               (async function () {
-                let web3 = new Web3(window.ethereum);
                 const network_type = await web3.eth.net.getNetworkType();
                 const factory_address = ProviderMappings.silent_option_factory_mappings[network_type];
 
