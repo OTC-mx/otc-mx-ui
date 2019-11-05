@@ -2,37 +2,34 @@ import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 
 import { state_mappings } from '../../utils/StateMappings';
+import { set_web3 } from '../../utils/EthereumUtils';
 import Forward from '../../atomic-options/build/contracts/Forward';
 
-import { web3_not_found, contract_not_initialized, contract_expired } from '../widgets/NoOp';
+import { contract_not_initialized, contract_expired } from '../widgets/NoOp';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import SettleWrapper from '../widgets/SettleWrapper';
 
 function OperateForward() {
   const [accounts, setAccounts] = useState([]);
-  const [web3, setWeb3] = useState({});
   const [forwardAddress, setForwardAddress] = useState({});
   const [forward, setForward] = useState({});
   const [forwardInfo, setForwardInfo] = useState([]);
+  let [web3, web3_message] = set_web3(window, setAccounts);
 
   useEffect(() => {
     (function () {
       (async function () {
         if (typeof window.ethereum == 'undefined'){ return; }
-        let accounts_temp = await window.ethereum.enable();
-        let web3_temp = new Web3(window.ethereum);
         let forward_address_temp = window.location.pathname.split("/").filter((e) => e !== "").pop();
 
-        let forward_temp = new web3_temp.eth.Contract(Forward.abi, forward_address_temp);
+        let forward_temp = new web3.eth.Contract(Forward.abi, forward_address_temp);
 
         let forward_info_call = await (
           forward_temp
           .methods
           .get_info()
-          .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
+          .call({ from: accounts[0] }, (error, result) => console.log(result) ));
 
-        setAccounts(accounts_temp);
-        setWeb3(web3_temp);
         setForwardAddress(forward_address_temp);
         setForward(forward_temp);
         setForwardInfo(forward_info_call);
@@ -43,7 +40,7 @@ function OperateForward() {
     return(
       <div>
         <h1>Operate Forward</h1>
-        <div>{web3_not_found()}</div>
+        <div>{web3_message}</div>
       </div>
     );
   } else {

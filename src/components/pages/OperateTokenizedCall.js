@@ -2,48 +2,45 @@ import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 
 import { state_mappings } from '../../utils/StateMappings';
+import { set_web3 } from '../../utils/EthereumUtils';
 import TokenizedOption from '../../atomic-options/build/contracts/TokenizedOption';
 
-import { web3_not_found, contract_not_initialized, contract_expired } from '../widgets/NoOp';
+import { contract_not_initialized, contract_expired } from '../widgets/NoOp';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import ExerciseExpire from '../widgets/ExerciseExpire';
 
 function OperateTokenizedCall() {
   const [accounts, setAccounts] = useState([]);
-  const [web3, setWeb3] = useState({});
   const [optionAddress, setOptionAddress] = useState({});
   const [option, setOption] = useState({});
   const [optionInfo, setOptionInfo] = useState([]);
   const [tokenInfo, setTokenInfo] = useState([]);
+  let [web3, web3_message] = set_web3(window, setAccounts);
 
   useEffect(() => {
     (function () {
       (async function () {
         if (typeof window.ethereum == 'undefined'){ return; }
-        let accounts_temp = await window.ethereum.enable();
-        let web3_temp = new Web3(window.ethereum);
         let option_address_temp = window.location.pathname.split("/").filter((e) => e !== "").pop();
 
-        let option_temp = new web3_temp.eth.Contract(TokenizedOption.abi, option_address_temp);
+        let option_temp = new web3.eth.Contract(TokenizedOption.abi, option_address_temp);
 
         let option_info_call = await (
           option_temp
           .methods
           .get_info()
-          .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
+          .call({ from: accounts[0] }, (error, result) => console.log(result) ));
         let token_info_call = await (
           option_temp
           .methods
           .get_token_info()
-          .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
-        let asset_exercisable = (web3_temp.utils.toBN(token_info_call[4])
-          .mul(web3_temp.utils.toBN(option_info_call[6]))
-          .div(web3_temp.utils.toBN(option_info_call[5]))
+          .call({ from: accounts[0] }, (error, result) => console.log(result) ));
+        let asset_exercisable = (web3.utils.toBN(token_info_call[4])
+          .mul(web3.utils.toBN(option_info_call[6]))
+          .div(web3.utils.toBN(option_info_call[5]))
         );
         token_info_call[6] = asset_exercisable.toString();
 
-        setAccounts(accounts_temp);
-        setWeb3(web3_temp);
         setOptionAddress(option_address_temp);
         setOption(option_temp);
         setOptionInfo(option_info_call);
@@ -55,7 +52,7 @@ function OperateTokenizedCall() {
     return(
       <div>
         <h1>Operate Tokenized Call Option</h1>
-        <div>{web3_not_found()}</div>
+        <div>{web3_message}</div>
       </div>
     );
   } else {

@@ -3,48 +3,47 @@ import Web3 from 'web3';
 import { ethers } from 'ethers';
 
 import { state_mappings } from '../../utils/StateMappings';
+import { set_web3 } from '../../utils/EthereumUtils';
 import ManagedForward from '../../atomic-options/build/contracts/ManagedForward';
 
-import { web3_not_found, contract_not_initialized, contract_expired } from '../widgets/NoOp';
+import { contract_not_initialized, contract_expired } from '../widgets/NoOp';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import SettleWrapper from '../widgets/SettleWrapper';
 
 function OperateManagedForward() {
   const [accounts, setAccounts] = useState([]);
-  const [web3, setWeb3] = useState({});
   const [forwardAddress, setForwardAddress] = useState({});
   const [forward, setForward] = useState({});
   const [forwardInfo, setForwardInfo] = useState([]);
   const [portfolioInfo, setPortfolioInfo] = useState([]);
   const [isForceSettle, setIsForceSettle] = useState('');
+  let [web3, web3_message] = set_web3(window, setAccounts);
 
   useEffect(() => {
     (function () {
       (async function () {
         if (typeof window.ethereum == 'undefined'){ return; }
-        let accounts_temp = await window.ethereum.enable();
-        let web3_temp = new Web3(window.ethereum);
         let forward_address_temp = window.location.pathname.split("/").filter((e) => e !== "").pop();
 
-        let forward_temp = new web3_temp.eth.Contract(ManagedForward.abi, forward_address_temp);
+        let forward_temp = new web3.eth.Contract(ManagedForward.abi, forward_address_temp);
 
         let forward_info_call = await (
           forward_temp
           .methods
           .get_info()
-          .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
+          .call({ from: accounts[0] }, (error, result) => console.log(result) ));
         let portfolio_info_call = await (
           forward_temp
           .methods
           .get_portfolio_info()
-          .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
+          .call({ from: accounts[0] }, (error, result) => console.log(result) ));
 
         let zero_address = ethers.utils.hexZeroPad('0x0', 20);
         let base_matched_state_call;
         if (portfolio_info_call[4] == zero_address) {
           base_matched_state_call = state_mappings.expired;
         } else {
-          let base_matched = new web3_temp.eth.Contract(ManagedForward.abi, portfolio_info_call[4]);
+          let base_matched = new web3.eth.Contract(ManagedForward.abi, portfolio_info_call[4]);
           base_matched_state_call = await (
             base_matched
             .methods
@@ -55,7 +54,7 @@ function OperateManagedForward() {
         if (portfolio_info_call[5] == zero_address) {
           asset_matched_state_call = state_mappings.expired;
         } else {
-          let asset_matched = new web3_temp.eth.Contract(ManagedForward.abi, portfolio_info_call[5]);
+          let asset_matched = new web3.eth.Contract(ManagedForward.abi, portfolio_info_call[5]);
           asset_matched_state_call = await (
             asset_matched
             .methods
@@ -66,8 +65,6 @@ function OperateManagedForward() {
         let is_force_settle_temp = (! ((base_matched_state_call == state_mappings.expired) &&
                                     (asset_matched_state_call == state_mappings.expired)));
 
-        setAccounts(accounts_temp);
-        setWeb3(web3_temp);
         setForwardAddress(forward_address_temp);
         setForward(forward_temp);
         setForwardInfo(forward_info_call);
@@ -80,7 +77,7 @@ function OperateManagedForward() {
     return(
       <div>
         <h1>Operate Managed Forward</h1>
-        <div>{web3_not_found()}</div>
+        <div>{web3_message}</div>
       </div>
     );
   } else {

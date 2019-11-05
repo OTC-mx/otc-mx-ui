@@ -2,37 +2,34 @@ import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 
 import { state_mappings } from '../../utils/StateMappings';
+import { set_web3 } from '../../utils/EthereumUtils';
 import Option from '../../atomic-options/build/contracts/Option';
 
-import { web3_not_found, contract_not_initialized, contract_expired } from '../widgets/NoOp';
+import { contract_not_initialized, contract_expired } from '../widgets/NoOp';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import ExerciseExpire from '../widgets/ExerciseExpire';
 
 function OperateCall() {
   const [accounts, setAccounts] = useState([]);
-  const [web3, setWeb3] = useState({});
   const [optionAddress, setOptionAddress] = useState({});
   const [option, setOption] = useState({});
   const [optionInfo, setOptionInfo] = useState([]);
+  let [web3, web3_message] = set_web3(window, setAccounts);
 
   useEffect(() => {
     (function () {
       (async function () {
         if (typeof window.ethereum == 'undefined'){ return; }
-        let accounts_temp = await window.ethereum.enable();
-        let web3_temp = new Web3(window.ethereum);
         let option_address_temp = window.location.pathname.split("/").filter((e) => e !== "").pop();
 
-        let option_temp = new web3_temp.eth.Contract(Option.abi, option_address_temp);
+        let option_temp = new web3.eth.Contract(Option.abi, option_address_temp);
 
         let option_info_call = await (
           option_temp
           .methods
           .get_info()
-          .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
+          .call({ from: accounts[0] }, (error, result) => console.log(result) ));
 
-        setAccounts(accounts_temp);
-        setWeb3(web3_temp);
         setOptionAddress(option_address_temp);
         setOption(option_temp);
         setOptionInfo(option_info_call);
@@ -43,7 +40,7 @@ function OperateCall() {
     return(
       <div>
         <h1>Operate Call Option</h1>
-        <div>{web3_not_found()}</div>
+        <div>{web3_message}</div>
       </div>
     );
   } else {

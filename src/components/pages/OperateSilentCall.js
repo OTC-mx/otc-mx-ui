@@ -2,37 +2,34 @@ import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 
 import { state_mappings } from '../../utils/StateMappings';
+import { set_web3 } from '../../utils/EthereumUtils';
 import SilentOption from '../../atomic-options/build/contracts/SilentOption';
 
-import { web3_not_found, contract_not_initialized, contract_expired } from '../widgets/NoOp';
+import { contract_not_initialized, contract_expired } from '../widgets/NoOp';
 import PayFeeActivateAbort from '../widgets/PayFeeActivateAbort';
 import ExerciseExpire from '../widgets/ExerciseExpire';
 
 function OperateCall() {
   const [accounts, setAccounts] = useState([]);
-  const [web3, setWeb3] = useState({});
   const [silentOptionAddress, setSilentOptionAddress] = useState({});
   const [silentOption, setSilentOption] = useState({});
   const [silentOptionInfo, setSilentOptionInfo] = useState([]);
+  let [web3, web3_message] = set_web3(window, setAccounts);
 
   useEffect(() => {
     (function () {
       (async function () {
         if (typeof window.ethereum == 'undefined'){ return; }
-        let accounts_temp = await window.ethereum.enable();
-        let web3_temp = new Web3(window.ethereum);
         let silent_option_address_temp = window.location.pathname.split("/").filter((e) => e !== "").pop();
 
-        let silent_option_temp = new web3_temp.eth.Contract(SilentOption.abi, silent_option_address_temp);
+        let silent_option_temp = new web3.eth.Contract(SilentOption.abi, silent_option_address_temp);
 
         let silent_option_info_call = await (
           silent_option_temp
           .methods
           .get_info()
-          .call({ from: accounts_temp[0] }, (error, result) => console.log(result) ));
+          .call({ from: accounts[0] }, (error, result) => console.log(result) ));
 
-        setAccounts(accounts_temp);
-        setWeb3(web3_temp);
         setSilentOptionAddress(silent_option_address_temp);
         setSilentOption(silent_option_temp);
         setSilentOptionInfo(silent_option_info_call);
@@ -43,7 +40,7 @@ function OperateCall() {
     return(
       <div>
         <h1>Operate Call Option</h1>
-        <div>{web3_not_found()}</div>
+        <div>{web3_message}</div>
       </div>
     );
   } else {
