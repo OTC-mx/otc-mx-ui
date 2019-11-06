@@ -29,9 +29,14 @@ form {
   padding-left: 25px;
   background-color: white;
   display: block;
-  /*flex-direction: column;*/
   justify-content: center;
+  color: red;
+  font-size: 10px;
+}
+
+form small {
   color: black;
+  font-size: 12px;
 }
 
 p {
