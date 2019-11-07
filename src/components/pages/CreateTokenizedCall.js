@@ -16,19 +16,18 @@ function CreateTokenizedCall() {
   const [optionAddress, setOptionAddress] = useState('');
   let [web3, web3_message] = set_web3(window, setAccounts);
 
-  const initalValues = ({ buyer: '', base_addr: '', asset_addr:'',
+  const initialValues = ({ buyer: '', base_addr: '', asset_addr:'',
                           fee: '', strike_price_base: '', strike_price_quote: '',
                           volume: '', maturity_time: '', expiry_time:'' });
-  const validationSchema = get_schema(initalValues.keys(), web3);
+  const validationSchema = get_schema(Object.keys(initialValues), web3);
 
   return (
     <div>
       <h1>Create Tokenized Call Option</h1>
       <div>{web3_message}</div>
       <Formik
-        initialValues={{ buyer: '', base_addr: '', asset_addr:'',
-                        fee: '', strike_price_base: '', strike_price_quote: '',
-                        volume: '', maturity_time: '', expiry_time:''}}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={(values, actions) => {
           setTimeout(() => {
             actions.setSubmitting(false);
