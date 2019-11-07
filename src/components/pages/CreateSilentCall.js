@@ -10,6 +10,7 @@ import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import SilentOption from '../../atomic-options/build/contracts/SilentOption';
 
 function CreateSilentCall() {
+  const [addressPreface, setAddressPreface] = useState('');
   const [preface, setPreface] = useState('');
   const [urlPreface, setUrlPreface] = useState('');
   const [result, setResult] = useState('');
@@ -75,6 +76,7 @@ function CreateSilentCall() {
                   .collateralize()
                   .send({ from: accounts[0] })
                 );
+                setAddressPreface('Silent Option Address: ');
                 setSilentOptionAddress(silent_option_address_temp);
                 setPreface('Shareable URL: ');
                 setUrlPreface('https://otc.mx');
@@ -100,6 +102,7 @@ function CreateSilentCall() {
           </form>
         )}
       />
+      <p>{addressPreface}{silentOptionAddress}</p>
       <p>{preface} <a href={result} target="_blank" rel="noopener noreferrer">{urlPreface}{result}</a></p>
     </div>
   );

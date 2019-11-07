@@ -9,6 +9,7 @@ import PoolToken from '../../atomic-options/build/contracts/PoolToken';
 import TokenizedOption from '../../atomic-options/build/contracts/Option';
 
 function CreateTokenizedCall() {
+  const [addressPreface, setAddressPreface] = useState('');
   const [preface, setPreface] = useState('');
   const [urlPreface, setUrlPreface] = useState('');
   const [result, setResult] = useState('');
@@ -93,6 +94,7 @@ function CreateTokenizedCall() {
                   .collateralize()
                   .send({ from: accounts[0] })
                 );
+                setAddressPreface('Tokenized Option Address: ');
                 setOptionAddress(tokenized_option_address_temp);
                 setPreface('Shareable URL: ');
                 setUrlPreface('https://otc.mx');
@@ -117,6 +119,7 @@ function CreateTokenizedCall() {
           </form>
         )}
       />
+      <p>{addressPreface}{optionAddress}</p>
       <p>{preface} <a href={result} target="_blank" rel="noopener noreferrer">{urlPreface}{result}</a></p>
     </div>
   );

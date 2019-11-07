@@ -9,6 +9,7 @@ import ERC20 from '../../atomic-options/build/contracts/ERC20';
 import Option from '../../atomic-options/build/contracts/Option';
 
 function CreateCall() {
+  const [addressPreface, setAddressPreface] = useState('');
   const [preface, setPreface] = useState('');
   const [urlPreface, setUrlPreface] = useState('');
   const [result, setResult] = useState('');
@@ -20,7 +21,7 @@ function CreateCall() {
                           fee: '', strike_price_base: '', strike_price_quote: '',
                           volume: '', maturity_time: '', expiry_time:'' });
   const validationSchema = get_schema(Object.keys(initialValues), web3);
-  
+
   return (
     <div>
       <h1>Create Call Option</h1>
@@ -65,6 +66,7 @@ function CreateCall() {
                   .collateralize()
                   .send({ from: accounts[0] })
                 );
+                setAddressPreface('Option Address: ');
                 setOptionAddress(option_address_temp);
                 setPreface('Shareable URL: ');
                 setUrlPreface('https://otc.mx');
@@ -89,6 +91,7 @@ function CreateCall() {
           </form>
         )}
       />
+      <p>{addressPreface}{optionAddress}</p>
       <p>{preface} <a href={result} target="_blank" rel="noopener noreferrer">{urlPreface}{result}</a></p>
     </div>
   );
