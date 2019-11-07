@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Web3 from 'web3';
 
 import { set_web3 } from '../../utils/EthereumUtils';
 import Portfolio from '../../atomic-options/build/contracts/Portfolio';

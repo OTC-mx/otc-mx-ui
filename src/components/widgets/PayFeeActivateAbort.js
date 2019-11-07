@@ -9,7 +9,6 @@ function PayFeeActivateAbort(web3, derivative, derivative_address, accounts,
     forward = false, managed_forward = false, portfolioInfo = 0, setPortfolioInfo = 0) {
 
   function choose_widget() {
-    let current_time = Math.floor(Date.now() / 1000);
     let address_lower = `${accounts[0]}`.trim().toLowerCase();
     let issuer_lower = `${derivativeInfo[0]}`.trim().toLowerCase();
     let buyer_lower = `${derivativeInfo[1]}`.trim().toLowerCase();

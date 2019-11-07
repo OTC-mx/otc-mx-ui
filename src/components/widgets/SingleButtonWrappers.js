@@ -39,7 +39,6 @@ function activate(web3, forward, forward_address, accounts,
   let base = new web3.eth.Contract(ERC20.abi, forwardInfo[2]);
   let approve_method = base.methods.approve(forward_address, forwardInfo[7])
   let activate_method = forward.methods.activate();
-  let forward_info_method = forward.methods.get_info();
   return(SingleButtonAction(web3, forward, forward_address, accounts,
                             forwardInfo, setForwardInfo,
                             "Activate", "Activate",
